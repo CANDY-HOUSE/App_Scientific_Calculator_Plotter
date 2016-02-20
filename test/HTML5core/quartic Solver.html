@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="myEval-translator_lexer_parser_evaluator.js"></script>
+	<meta name = "viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;" >
+<script>
+var solverPost1,solverPost2,solverPost3,solverPost4,solverPost5,solverPost6,solverPost7,solverPost8,solverPost9,solverPost10;
+function internatioanlVersionOfFunc2(caseN){switch(caseN){
+    case 1:
+        solverPost1=' = 0 has any solutions<br><br>';
+        solverPost2=' = 0 has no solution.<br><br>';
+        solverPost3='<br>The only one solution of<br>';
+        solverPost4=' = 0<br>is :<br>x = ';
+        solverPost5='<br><br>';
+        solverPost6='<br>The 2 solutions of<br>';
+        solverPost7=' = 0<br>are :<br>x<sub>1</sub> = ';
+        solverPost8='<br>The 3 solutions of<br>';
+        solverPost9=' = 0<br>are :<br>x<sub>1</sub> = ';
+        solverPost10='<br>The 4 solutions of<br>';
+        solverPost11=' = 0<br>are :<br>x<sub>1</sub> = ';
+    break;
+        
+    case 2:
+        solverPost1=' = 0 有任意解<br><br>';
+        solverPost2=' = 0 沒有解<br><br>';
+        solverPost3='<br>';
+        solverPost4=' = 0<br>的唯一解是 :<br>x = ';
+        solverPost5='<br><br>';
+        solverPost6='<br>';
+        solverPost7=' = 0<br>的兩個解是 :<br>x<sub>1</sub> = ';
+        solverPost8='<br>';
+        solverPost9=' = 0<br>的三個解是 :<br>x<sub>1</sub> = ';
+        solverPost10='<br>';
+        solverPost11=' = 0<br>的四個解是 :<br>x<sub>1</sub> = ';
+    break;
+    case 3:
+        solverPost1=' = 0 は解が無数にある<br><br>';
+        solverPost2=' = 0 は解がない<br><br>';
+        solverPost3='<br>';
+        solverPost4=' = 0<br>の唯一の解は：<br>x = ';
+        solverPost5='<br>である<br><br>';
+        solverPost6='<br>';
+        solverPost7=' = 0<br>の二つの解は：<br>x<sub>1</sub> = ';
+        solverPost8='<br>';
+        solverPost9=' = 0<br>の三つの解は：<br>x<sub>1</sub> = ';
+        solverPost10='<br>';
+        solverPost11=' = 0<br>の四つの解は：<br>x<sub>1</sub> = ';
+    break;
+}}
+internatioanlVersionOfFunc2(1);
+
+
+/////////////////////solverSTART///////////////////////////////////////////////////////////////////////
+function isNumeric(n) {
+    return !isNaN(n) && isFinite(n);
+}
+function trivalEqSolver(a){
+    if(a==0){a='0'}
+    var check=myEval(a);
+	if(check==0) document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += MathMLthis(a,'all')+solverPost1;
+    else document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += MathMLthis(a,'all')+solverPost2;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+function LinearEqSolver(a,b){
+	if(a==0){trivalEqSolver(b);return}
+	if(b==0){b='0'}
+	var s=myEval('-('+b+')/('+a+')');//如果不這樣寫,abc如果有一個是string的話,b×b-4×a×c無法計算
+	var eq;
+    //-----
+	if(isNumeric(a)){
+        if(a==1){eq='x';}
+        else{eq=a+'·x';}
+    }
+    else{eq='('+MathMLthis(a,'all')+')·x'}
+    //-----
+    if(isNumeric(b)){
+        if(b[0]==='-'||b[0]==='+'){eq+=" "+b;}
+        else if(b!=0){eq+=' + '+b;}
+    }
+    else if(b!=0){eq+=' + ('+MathMLthis(b,'all')+')'}
+    //------
+	document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += solverPost3+eq+solverPost4+s+solverPost5;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+
+
+
+function QuadraticEqSolverS1(a,b,c){
+    return myEval('(-('+b+')+√(('+b+')^2-4×('+a+')×('+c+')))/(2×('+a+'))');
+}
+function QuadraticEqSolverS2(a,b,c){
+    return myEval('(-('+b+')-√(('+b+')^2-4×('+a+')×('+c+')))/(2×('+a+'))');
+}
+function QuadraticEqSolver(a,b,c){
+	if(a==0){LinearEqSolver(b,c);return}
+	if(b==0){b='0'}if(c==0){c='0'}//for "undefined string"如果已知是string則0表示空集合,'0'才可解析成零
+	var s1=myEval('(-('+b+')+√(('+b+')^2-4×('+a+')×('+c+')))/(2×('+a+'))');//如果不這樣寫,abc如果有一個是string的話,b×b-4×a×c無法計算
+    var s2=myEval('(-('+b+')-√(('+b+')^2-4×('+a+')×('+c+')))/(2×('+a+'))');
+	var eq;
+    //-----
+	if(isNumeric(a)){
+        if(a==1){eq='x<sup>2</sup>';}
+        else{eq=a+'·x<sup>2</sup>';}
+    }
+    else{eq='('+MathMLthis(a,'all')+')·x<sup>2</sup>'}
+    //-----
+    if(isNumeric(b)){
+        if(b==1){eq+=' + x';}
+        else if(b[0]==='-'||b[0]==='+'){eq+=" "+b+'·x';}
+        else if(b!=0){eq+=' + '+b+'·x';}
+    }
+    else if(b!=0){eq+=' + ('+MathMLthis(b,'all')+')·x'}
+    //-----
+    if(isNumeric(c)){
+        if(c[0]==='-'||c[0]==='+'){eq+=" "+c;}
+        else if(c!=0){eq+=' + '+c;}
+    }
+    else if(c!=0){eq+=' + ('+MathMLthis(c,'all')+')'}
+    //------
+	document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += solverPost6+eq+solverPost7+s1+'<br>x<sub>2</sub> = '+s2+solverPost5;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+
+
+
+
+
+
+
+
+function CubicEqSolverS1(a,b,c,d){
+    var A='(9×('+a+')×('+b+')×('+c+')-27×('+a+')^2×('+d+')-2×('+b+')^3)/54/('+a+')^3';
+    var B='(3×('+a+')×('+c+')-('+b+')^2)/9/('+a+')^2';
+    var C='-('+b+')/3/('+a+')';
+    var s1=myEval(   C+'+∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+    return s1;
+}
+function CubicEqSolverS2(a,b,c,d){
+    var A='(9×('+a+')×('+b+')×('+c+')-27×('+a+')^2×('+d+')-2×('+b+')^3)/54/('+a+')^3';
+    var B='(3×('+a+')×('+c+')-('+b+')^2)/9/('+a+')^2';
+    var C='-('+b+')/3/('+a+')';
+    var s2=myEval(   C+'+(-1+√(3)×i)/2×∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+(-1-√(3)×i)/2×∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+    return s2;
+}
+function CubicEqSolverS3(a,b,c,d){
+    var A='(9×('+a+')×('+b+')×('+c+')-27×('+a+')^2×('+d+')-2×('+b+')^3)/54/('+a+')^3';
+    var B='(3×('+a+')×('+c+')-('+b+')^2)/9/('+a+')^2';
+    var C='-('+b+')/3/('+a+')';
+    var s3=myEval(   C+'+(-1-√(3)×i)/2×∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+(-1+√(3)×i)/2×∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+    return s3;
+}
+function CubicEqSolver(a,b,c,d){
+	if(a==0){QuadraticEqSolver(b,c,d);return}
+    var s1,s2,s3,s4;
+	if(b==0){b='0'}if(c==0){c='0'}if(d==0){d='0'}
+    if(d==0&&c==0){
+        s1=0;
+        s2=0;
+        s3=myEval('-('+b+')/('+a+')');
+    }else if(d==0){
+        s1=0;
+        s2=QuadraticEqSolverS1(a,b,c);
+        s3=QuadraticEqSolverS2(a,b,c);
+    }else{
+        var A='(9×('+a+')×('+b+')×('+c+')-27×('+a+')^2×('+d+')-2×('+b+')^3)/54/('+a+')^3';
+        var B='(3×('+a+')×('+c+')-('+b+')^2)/9/('+a+')^2';
+        var C='-('+b+')/3/('+a+')';
+        var DELTA='('+A+')^2+('+B+')^3';
+        if(myEval(A)==0&&myEval(B)==0){//避免算不太準
+            s1=s2=s3=myEval(C);
+        }else if(myEval(DELTA)==0&&myEval(B)!=0){//避免算不太準
+            s1=s2=myEval( '(9×('+a+')×('+d+')-('+b+')×('+c+'))/2/(('+b+')^2-3×('+a+')×('+c+'))' );
+            s3=myEval( '(4×('+b+')×('+c+')-9×('+a+')×('+d+')-('+b+')^3/('+a+'))/(('+b+')^2-3×('+a+')×('+c+'))' );
+        }else{
+            s1=myEval(   C+'+∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+            s2=myEval(   C+'+(-1+√(3)×i)/2×∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+(-1-√(3)×i)/2×∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+            s3=myEval(   C+'+(-1-√(3)×i)/2×∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+(-1+√(3)×i)/2×∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+        }
+    }
+    var eq;
+    //-----
+	if(isNumeric(a)){
+        if(a==1){eq='x<sup>3</sup>';}
+        else{eq=a+'·x<sup>3</sup>';}
+    }
+    else{eq='('+MathMLthis(a,'all')+')·x<sup>3</sup>'}
+    //-----
+    if(isNumeric(b)){
+        if(b==1){eq+=' + x<sup>2</sup>';}
+        else if(b[0]==='-'||b[0]==='+'){eq+=" "+b+'·x<sup>2</sup>';}
+        else if(b!=0){eq+=' + '+b+'·x<sup>2</sup>';}
+    }
+    else if(b!=0){eq+=' + ('+MathMLthis(b,'all')+')·x<sup>2</sup>'}
+    //-----
+    if(isNumeric(c)){
+        if(c==1){eq+=' + x';}
+        else if(c[0]==='-'||c[0]==='+'){eq+=" "+c+'·x';}
+        else if(c!=0){eq+=' + '+c+'·x';}
+    }
+    else if(c!=0){eq+=' + ('+MathMLthis(c,'all')+')·x'}
+    //-----
+    if(isNumeric(d)){
+        if(d[0]==='-'||d[0]==='+'){eq+=" "+d;}
+        else if(d!=0){eq+=' + '+d;}
+    }
+    else if(d!=0){eq+=' + ('+MathMLthis(d,'all')+')'}
+    //------
+	document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += solverPost8+eq+solverPost9+s1+'<br>x<sub>2</sub> = '+s2+'<br>x<sub>3</sub> = '+s3+solverPost5;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+function QuarticEqSolver(a,b,c,d,e){
+    if(a==0){CubicEqSolver(b,c,d,e);return}
+    var s1,s2,s3,s4;
+    if(b==0){b='0'}if(c==0){c='0'}if(d==0){d='0'}if(e==0){e='0'}
+    if(e==0&&d==0&&c==0){
+        s1=0;
+        s2=0;
+        s3=0;
+        s4=myEval('-('+b+')/('+a+')');
+    }else if(e==0&&d==0){/*wiki判別式不全面,例如x^4+3•x^3=0爆炸*/
+        s1=0;
+        s2=0;
+        s3=QuadraticEqSolverS1(a,b,c);
+        s4=QuadraticEqSolverS2(a,b,c);
+    }else if(e==0){/*d=e=0狀況,其實用公式解也可以,只是怕wiki公式解的判別式不全面*/
+        s1=0;
+        s2=CubicEqSolverS1(a,b,c,d);
+        s3=CubicEqSolverS2(a,b,c,d);
+        s4=CubicEqSolverS3(a,b,c,d);
+    }else if(b==0&&d==0){
+        s1=myEval('√('+QuadraticEqSolverS1(a,c,e)+')');
+        s2=myEval('√('+QuadraticEqSolverS2(a,c,e)+')');
+        s3=myEval('-√('+QuadraticEqSolverS1(a,c,e)+')');
+        s4=myEval('-√('+QuadraticEqSolverS2(a,c,e)+')');
+    }else{
+        var DELTA='256×(('+a+')×('+e+'))^3-192×('+a+')^2×('+b+')×('+d+')×('+e+')^2-128×(('+a+')×('+c+')×('+e+'))^2+144×('+a+')^2×('+c+')×('+d+')^2×('+e+')-27×('+a+')^2×('+d+')^4+144×('+a+')×('+b+')^2×('+c+')×('+e+')^2-6×('+a+')×(('+b+')×('+d+'))^2×('+e+')-80×('+a+')×('+b+')×('+c+')^2×('+d+')×('+e+')+18×('+a+')×('+b+')×('+c+')×('+d+')^3+16×('+a+')×('+c+')^4×('+e+')-4×('+a+')×('+c+')^3×('+d+')^2-27×('+b+')^4×('+e+')^2+18×('+b+')^3×('+c+')×('+d+')×('+e+')-4×(('+b+')×('+d+'))^3-4×('+b+')^2×('+c+')^3×('+e+')+(('+b+')×('+c+')×('+d+'))^2';
+        var C='('+c+')^2-3×('+b+')×('+d+')+12×('+a+')×('+e+')';
+        if(myEval(DELTA)==0 && myEval(C)==0){
+            s1=s2=s3=s4=myEval('-('+b+')/4/('+a+')');
+        }else{
+            var A='-('+b+')/('+a+')';
+            var B='('+c+')/('+a+')';
+            var D='2×('+c+')^3-9×('+b+')×('+c+')×('+d+')+27×('+a+')×('+d+')^2+27×('+b+')^2×('+e+')-72×('+a+')×('+c+')×('+e+')';
+            var E='-('+b+')^3+4×('+a+')×('+b+')×('+c+')-8×('+a+')^2×('+d+')';
+            var A2='∛('+D+'+√(-4×('+C+')^3+('+D+')^2))';
+            var A3='∛(2)×('+C+')/3/('+a+')/'+A2+'+'+A2+'/3/∛(2)/('+a+')';
+            var A4='√(('+A+')^2/4-2/3×'+B+'+'+A3+')';
+            s1=myEval(   A+'/4+'+A4+'/2-√(('+A+')^2/2-4/3×('+B+')-('+A3+')+('+E+')/4/('+a+')^3/'+A4+')/2'   );
+            s2=myEval(   A+'/4+'+A4+'/2+√(('+A+')^2/2-4/3×('+B+')-('+A3+')+('+E+')/4/('+a+')^3/'+A4+')/2'   );
+            s3=myEval(   A+'/4-'+A4+'/2-√(('+A+')^2/2-4/3×('+B+')-('+A3+')-('+E+')/4/('+a+')^3/'+A4+')/2'   );
+            s4=myEval(   A+'/4-'+A4+'/2+√(('+A+')^2/2-4/3×('+B+')-('+A3+')-('+E+')/4/('+a+')^3/'+A4+')/2'   );
+        }
+    }
+    var eq;
+    //-----
+	if(isNumeric(a)){
+        if(a==1){eq='x<sup>4</sup>';}
+        else{eq=a+'·x<sup>4</sup>';}
+    }
+    else{eq='('+MathMLthis(a,'all')+')·x<sup>4</sup>'}
+    //-----
+    if(isNumeric(b)){
+        if(b==1){eq+=' + x<sup>3</sup>';}
+        else if(b[0]==='-'||b[0]==='+'){eq+=" "+b+'·x<sup>3</sup>';}
+        else if(b!=0){eq+=' + '+b+'·x<sup>3</sup>';}
+    }
+    else if(b!=0){eq+=' + ('+MathMLthis(b,'all')+')·x<sup>3</sup>'}
+    //-----
+    if(isNumeric(c)){
+        if(c==1){eq+=' + x<sup>2</sup>';}
+        else if(c[0]==='-'||c[0]==='+'){eq+=" "+c+'·x<sup>2</sup>';}
+        else if(c!=0){eq+=' + '+c+'·x<sup>2</sup>';}
+    }
+    else if(c!=0){eq+=' + ('+MathMLthis(c,'all')+')·x<sup>2</sup>'}
+    //-----
+    if(isNumeric(d)){
+        if(d==1){eq+=' + x';}
+        else if(d[0]==='-'||d[0]==='+'){eq+=" "+d+'·x';}
+        else if(d!=0){eq+=' + '+d+'·x';}
+    }
+    else if(d!=0){eq+=' + ('+MathMLthis(d,'all')+')·x'}
+    //-----
+    if(isNumeric(e)){
+        if(e[0]==='-'||e[0]==='+'){eq+=" "+e;}
+        else if(e!=0){eq+=' + '+e;}
+    }
+    else if(e!=0){eq+=' + ('+MathMLthis(e,'all')+')'}
+    //------
+	document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += solverPost10+eq+solverPost11+s1+'<br>x<sub>2</sub> = '+s2+'<br>x<sub>3</sub> = '+s3+'<br>x<sub>4</sub> = '+s4+solverPost5;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+////////////////////////////sloverEND///////////////////////////////////////////////////////////////
+
+</script>
+</head>
+
+<body style="background-color:#FFFFFF;">
+<noscript><p style="color: red;font-size:x-large">You must enable Javascript in you browser to use this website correctly!</p></noscript>
+<div id="resultsDisplayOfOthersFunctionality" style="overflow:auto;font-size:18px;line-height:22px;height:174px;width:305px;"></div>
+<!--
+ <div id="resultsDisplayOfOthersFunctionality" style="overflow:auto;font-size:18px;line-height:22px;height:160px;width:305px;"></div>
+ -->
+</body>
+</html>

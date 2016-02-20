@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="myEval-translator_lexer_parser_evaluator.js"></script>
+	<meta name = "viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;" >
+<script>
+var alert1forFunc1,alert1forFunc2,NewtonPost1,NewtonPost2,NewtonPost3,NewtonPost4,NewtonPost5;
+function internatioanlVersionOfFunc2(caseN){switch(caseN){
+    case 1:
+        alert1forFunc1='Only one "=" allowed and needed for your equation.';
+        alert1forFunc2="Variable x doesn’t exist in your equation.";
+        NewtonPost1="<br>Newton’s Method<br> starting from x = ";/*'要用‘取代！不然會會背判斷只有一個而出錯！！*/
+        NewtonPost2="<br> had found x = ";
+        NewtonPost3="<br> is a solution of<br>";
+        NewtonPost4="<br> could NOT found a solution of<br>";
+        NewtonPost5="<br> within 100 times‘ trying.<br><br>";
+    break;
+        
+    case 2:
+        alert1forFunc1='在方程式中要恰恰一個等號';
+        alert1forFunc2='在方程式中沒有變數 x';
+        NewtonPost1="<br>從 x = ";
+        NewtonPost2=" 開始猜,<br>牛頓的數值解法 已經找到 <br>x = ";
+        NewtonPost3=" 是這個方程式的一個解：<br>";
+        NewtonPost4=" 開始猜,<br>牛頓的數值解法 不能 在一百次以內找到<br>";
+        NewtonPost5="<br> 的一個解<br><br>";
+    break;
+    case 3:
+        alert1forFunc1='数式の中に ”＝” がないか、または二つ以上含まれています';
+        alert1forFunc2='数式の中に x がありません';
+        NewtonPost1="<br>x = ";
+        NewtonPost2=" から始め、<br>ニュートン法により、<br>x = ";
+        NewtonPost3=" がこの式の一つの解となる：<br>";
+        NewtonPost4=" から始め、<br>ニュートン法により百回試したが、<br>";
+        NewtonPost5="<br> の解は見つかりませんでした<br><br>";
+    break;
+}}
+internatioanlVersionOfFunc2(1);
+///////////////////////////////////////科學記號處理功能Start///////////////////////////////
+
+function myScientificNotation(x){
+    if(typeof x==="string"){x=Number(x);}
+    
+    var data= String(x).split(/[eE]/);
+    if(data.length== 1) return data[0];
+    
+    return data[0]+"×10<sup>"+data[1].replace(/^\+/,'')+"</sup>";
+}
+var noExponents= function(x){
+    if(typeof x==="string"){x=Number(x);}
+    
+    var data= String(x).split(/[eE]/);
+    if(data.length== 1) return data[0];
+    
+    var  z= '', sign= x<0? '-':'',
+    str= data[0].replace('.', ''),
+    mag= Number(data[1])+ 1;
+    
+    if(mag<0){
+        z= sign + '0.';
+        while(mag++) z += '0';
+        return z + str.replace(/^\-/,'');
+    }
+    mag -= str.length;
+    while(mag--) z += '0';
+    return str + z;
+}
+
+/////////////////////NewtonSolverSTART//////////////////////////////////////////////////
+function nround(v){//数値vを指定の小数点以下桁数n(n>=1)で四捨五入する関数nround;javascript會有算不準的問題
+    var n=6;
+    var tmp = 1;
+    for(var i= 0; i < n; i++)tmp = tmp * 10;
+    var v = Math.round(v * tmp);
+    v = v / tmp;
+    return v;
+}
+
+function NewtonSolver(str,sol) {
+    if(sol==0){sol='0'}
+    if(!str.match(/\=/)||str.match(/\=/g).length!=1){alert(alert1forFunc1);return 漢字讓你故障};
+    if(!str.match(/x/)){alert(alert1forFunc2);return 漢字讓你故障};
+    var f = '('+str.replace(/\=/,')-(')+')';
+    myEval('x=0\n'+f,'ReturnFinalReal');//偷吃步check是否有位定義變數
+    
+    var tolerance=0.0001;
+    var code='\nf(x)='+f+'\ng(x)=(f(x+0.000001)-f(x))/0.000001\nh(x)=x-f(x)/g(x)\n';
+    var aSolution=sol,counter=0,checkCode,check;
+    do{
+        checkCode='s='+noExponents(aSolution)+'\ncheck(x)='+'abs(('+str.replace(/\=/,')-(')+'))/(abs('+str.replace(/\=/,')+abs(')+')+0.000074)'+'\ncheck(s)';
+        check=Math.abs(myEval(checkCode,'ReturnFinalReal'));
+        
+        if(check<=tolerance){break;}
+        
+        counter++;
+        aSolution=myEval(code+'h('+noExponents(aSolution)+')','ReturnFinalReal');
+    }while(counter<=100 && !isNaN(aSolution)  );
+    //alert('\ncheck: '+check+'\naSolution: '+aSolution+'\ncounter: '+counter);
+    var prefix,suffix;
+    for(var i= 0; i < str.length; i++){
+        if(str.charAt(i) === '='){
+            prefix=str.substring(0,i);
+            suffix=str.substring(i+1);
+        }
+    }
+   
+   
+    
+    if(check<=tolerance){
+        aSolution=nround(aSolution);
+        document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += NewtonPost1+sol+NewtonPost2+myScientificNotation(aSolution)+NewtonPost3+MathMLthis(prefix,'all')+' = '+MathMLthis(suffix,'all')+'<br><br>';
+    }else{
+        document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += NewtonPost1+sol+NewtonPost4+MathMLthis(prefix,'all')+' = '+MathMLthis(suffix,'all')+NewtonPost5;
+    }
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+
+/////////////////////NewtonSolverEND////////////////////////////////////////////////////</script>
+</head>
+
+<body style="background-color:#FFFFFF;">
+<noscript><p style="color: red;font-size:x-large">You must enable Javascript in you browser to use this website correctly!</p></noscript>
+<div id="resultsDisplayOfOthersFunctionality" style="overflow:auto;font-size:18px;line-height:22px;height:184px;width:305px;"></div>
+<!--
+ <div id="resultsDisplayOfOthersFunctionality" style="overflow:auto;font-size:18px;line-height:22px;height:170px;width:305px;"></div>
+ -->
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="myEval-translator_lexer_parser_evaluator.js"></script>
+	<meta name = "viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;" >
+<script>
+function execute(input){
+    var IMRESULTD=document.getElementById("result");
+	IMRESULTD.innerHTML = myEval(input,'all');
+    IMRESULTD.scrollTop=IMRESULTD.scrollHeight;
+}
+</script>
+</head>
+
+<body style="background-color:#FFFFFF;">
+<noscript><p style="color: red;font-size:x-large">You must enable Javascript in you browser to use this website correctly!</p></noscript>
+
+<div id="result" style="overflow:auto;font-size:18px;line-height:22px;height:183px;width:305px;"></div>
+<!--
+ <div id="result" style="overflow:auto;font-size:18px;line-height:22px;height:169px;width:305px;"></div>
+ -->
+</body>
+</html>

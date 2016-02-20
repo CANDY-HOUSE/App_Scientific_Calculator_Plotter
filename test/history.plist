@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NewtonResult</key>
+	<string></string>
+	<key>NewtonStartX</key>
+	<string></string>
+	<key>NewtonEq</key>
+	<string>sin(x)=e^x－3·√(x)</string>
+	<key>X4solverResult</key>
+	<string></string>
+	<key>eHistory</key>
+	<string></string>
+	<key>dHistory</key>
+	<string></string>
+	<key>cHistory</key>
+	<string></string>
+	<key>bHistory</key>
+	<string></string>
+	<key>aHistory</key>
+	<string></string>
+	<key>draft</key>
+	<string></string>
+	<key>result</key>
+	<string></string>
+</dict>
+</plist>

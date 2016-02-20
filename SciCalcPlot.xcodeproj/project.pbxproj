@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D004FA8C18EA1A4D00C8D3F8 /* GraphicsByCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D004FA8B18EA1A4D00C8D3F8 /* GraphicsByCoding.m */; };
+		D005FC3B17C2908600578470 /* HTML5core in Resources */ = {isa = PBXBuildFile; fileRef = D005FC3A17C2908600578470 /* HTML5core */; };
+		D00DCA89179C1BD600F393EF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00DCA88179C1BD600F393EF /* UIKit.framework */; };
+		D00DCA8B179C1BD600F393EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00DCA8A179C1BD600F393EF /* Foundation.framework */; };
+		D00DCA8D179C1BD600F393EF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00DCA8C179C1BD600F393EF /* CoreGraphics.framework */; };
+		D00DCA93179C1BD600F393EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00DCA91179C1BD600F393EF /* InfoPlist.strings */; };
+		D00DCA95179C1BD600F393EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D00DCA94179C1BD600F393EF /* main.m */; };
+		D00DCA99179C1BD600F393EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D00DCA98179C1BD600F393EF /* AppDelegate.m */; };
+		D00DCA9B179C1BD600F393EF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D00DCA9A179C1BD600F393EF /* Default.png */; };
+		D00DCA9D179C1BD600F393EF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00DCA9C179C1BD600F393EF /* Default@2x.png */; };
+		D00DCA9F179C1BD600F393EF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D00DCA9E179C1BD600F393EF /* Default-568h@2x.png */; };
+		D00DCAA2179C1BD600F393EF /* iPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D00DCAA0179C1BD600F393EF /* iPhoneStoryboard.storyboard */; };
+		D00DCAA5179C1BD600F393EF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D00DCAA4179C1BD600F393EF /* ViewController.m */; };
+		D00DCAAE179C1BD700F393EF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00DCA88179C1BD600F393EF /* UIKit.framework */; };
+		D00DCAAF179C1BD700F393EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00DCA8A179C1BD600F393EF /* Foundation.framework */; };
+		D0380F4017D45571002F77D3 /* history.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0380F3F17D45571002F77D3 /* history.plist */; };
+		D09C04391854320700E3E92F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D09C04381854320700E3E92F /* Images.xcassets */; };
+		D09C0441185A4A9800E3E92F /* infoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09C0440185A4A9800E3E92F /* infoViewController.m */; };
+		D09C0449185A974D00E3E92F /* plotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09C0448185A974D00E3E92F /* plotViewController.m */; };
+		D09C0452185A99BD00E3E92F /* solveX4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09C0451185A99BD00E3E92F /* solveX4ViewController.m */; };
+		D09C045B185A9E6500E3E92F /* NewtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09C045A185A9E6500E3E92F /* NewtonViewController.m */; };
+		D0B1E3F2186B188B001E9E3A /* plotHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B1E3F1186B188B001E9E3A /* plotHistory.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D00DCAB0179C1BD700F393EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00DCA7D179C1BD600F393EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D00DCA84179C1BD600F393EF;
+			remoteInfo = test;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D004FA8A18EA1A4D00C8D3F8 /* GraphicsByCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsByCoding.h; sourceTree = "<group>"; };
+		D004FA8B18EA1A4D00C8D3F8 /* GraphicsByCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphicsByCoding.m; sourceTree = "<group>"; };
+		D005FC3A17C2908600578470 /* HTML5core */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTML5core; sourceTree = "<group>"; };
+		D00DCA85179C1BD600F393EF /* SciCalcPlot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SciCalcPlot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D00DCA88179C1BD600F393EF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D00DCA8A179C1BD600F393EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D00DCA8C179C1BD600F393EF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D00DCA90179C1BD600F393EF /* SciCalcPlot-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SciCalcPlot-Info.plist"; sourceTree = "<group>"; };
+		D00DCA92179C1BD600F393EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D00DCA94179C1BD600F393EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D00DCA96179C1BD600F393EF /* SciCalcPlot-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SciCalcPlot-Prefix.pch"; sourceTree = "<group>"; };
+		D00DCA97179C1BD600F393EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D00DCA98179C1BD600F393EF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D00DCA9A179C1BD600F393EF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		D00DCA9C179C1BD600F393EF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		D00DCA9E179C1BD600F393EF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D00DCAA1179C1BD600F393EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
+		D00DCAA3179C1BD600F393EF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D00DCAA4179C1BD600F393EF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D00DCAAB179C1BD700F393EF /* SciCalcPlotTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SciCalcPlotTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0380F3F17D45571002F77D3 /* history.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = history.plist; sourceTree = "<group>"; };
+		D09C04381854320700E3E92F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SciCalcPlot/Images.xcassets; sourceTree = "<group>"; };
+		D09C043F185A4A9800E3E92F /* infoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = infoViewController.h; sourceTree = "<group>"; };
+		D09C0440185A4A9800E3E92F /* infoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = infoViewController.m; sourceTree = "<group>"; };
+		D09C0447185A974D00E3E92F /* plotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plotViewController.h; sourceTree = "<group>"; };
+		D09C0448185A974D00E3E92F /* plotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = plotViewController.m; sourceTree = "<group>"; };
+		D09C0450185A99BD00E3E92F /* solveX4ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = solveX4ViewController.h; sourceTree = "<group>"; };
+		D09C0451185A99BD00E3E92F /* solveX4ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = solveX4ViewController.m; sourceTree = "<group>"; };
+		D09C0459185A9E6500E3E92F /* NewtonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewtonViewController.h; sourceTree = "<group>"; };
+		D09C045A185A9E6500E3E92F /* NewtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewtonViewController.m; sourceTree = "<group>"; };
+		D0B1E3F1186B188B001E9E3A /* plotHistory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = plotHistory.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D00DCA82179C1BD600F393EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00DCA89179C1BD600F393EF /* UIKit.framework in Frameworks */,
+				D00DCA8B179C1BD600F393EF /* Foundation.framework in Frameworks */,
+				D00DCA8D179C1BD600F393EF /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00DCAA7179C1BD600F393EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00DCAAE179C1BD700F393EF /* UIKit.framework in Frameworks */,
+				D00DCAAF179C1BD700F393EF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D00DCA7C179C1BD600F393EF = {
+			isa = PBXGroup;
+			children = (
+				D09C043E18546AF200E3E92F /* iPad */,
+				D09C04381854320700E3E92F /* Images.xcassets */,
+				D00DCA8E179C1BD600F393EF /* test */,
+				D00DCA87179C1BD600F393EF /* Frameworks */,
+				D00DCA86179C1BD600F393EF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D00DCA86179C1BD600F393EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D00DCA85179C1BD600F393EF /* SciCalcPlot.app */,
+				D00DCAAB179C1BD700F393EF /* SciCalcPlotTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D00DCA87179C1BD600F393EF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D00DCA88179C1BD600F393EF /* UIKit.framework */,
+				D00DCA8A179C1BD600F393EF /* Foundation.framework */,
+				D00DCA8C179C1BD600F393EF /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D00DCA8E179C1BD600F393EF /* test */ = {
+			isa = PBXGroup;
+			children = (
+				D005FC3A17C2908600578470 /* HTML5core */,
+				D00DCA97179C1BD600F393EF /* AppDelegate.h */,
+				D00DCA98179C1BD600F393EF /* AppDelegate.m */,
+				D00DCAA0179C1BD600F393EF /* iPhoneStoryboard.storyboard */,
+				D00DCAA3179C1BD600F393EF /* ViewController.h */,
+				D00DCAA4179C1BD600F393EF /* ViewController.m */,
+				D09C043F185A4A9800E3E92F /* infoViewController.h */,
+				D09C0440185A4A9800E3E92F /* infoViewController.m */,
+				D09C0447185A974D00E3E92F /* plotViewController.h */,
+				D09C0448185A974D00E3E92F /* plotViewController.m */,
+				D09C0450185A99BD00E3E92F /* solveX4ViewController.h */,
+				D09C0451185A99BD00E3E92F /* solveX4ViewController.m */,
+				D09C0459185A9E6500E3E92F /* NewtonViewController.h */,
+				D09C045A185A9E6500E3E92F /* NewtonViewController.m */,
+				D004FA8A18EA1A4D00C8D3F8 /* GraphicsByCoding.h */,
+				D004FA8B18EA1A4D00C8D3F8 /* GraphicsByCoding.m */,
+				D00DCA8F179C1BD600F393EF /* Supporting Files */,
+				D0380F3F17D45571002F77D3 /* history.plist */,
+				D0B1E3F1186B188B001E9E3A /* plotHistory.plist */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		D00DCA8F179C1BD600F393EF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D00DCA90179C1BD600F393EF /* SciCalcPlot-Info.plist */,
+				D00DCA91179C1BD600F393EF /* InfoPlist.strings */,
+				D00DCA94179C1BD600F393EF /* main.m */,
+				D00DCA96179C1BD600F393EF /* SciCalcPlot-Prefix.pch */,
+				D00DCA9A179C1BD600F393EF /* Default.png */,
+				D00DCA9C179C1BD600F393EF /* Default@2x.png */,
+				D00DCA9E179C1BD600F393EF /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D09C043E18546AF200E3E92F /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D00DCA84179C1BD600F393EF /* SciCalcPlot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D00DCABD179C1BD700F393EF /* Build configuration list for PBXNativeTarget "SciCalcPlot" */;
+			buildPhases = (
+				D00DCA81179C1BD600F393EF /* Sources */,
+				D00DCA82179C1BD600F393EF /* Frameworks */,
+				D00DCA83179C1BD600F393EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SciCalcPlot;
+			productName = test;
+			productReference = D00DCA85179C1BD600F393EF /* SciCalcPlot.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D00DCAAA179C1BD600F393EF /* SciCalcPlotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D00DCAC0179C1BD700F393EF /* Build configuration list for PBXNativeTarget "SciCalcPlotTests" */;
+			buildPhases = (
+				D00DCAA6179C1BD600F393EF /* Sources */,
+				D00DCAA7179C1BD600F393EF /* Frameworks */,
+				D00DCAA8179C1BD600F393EF /* Resources */,
+				D00DCAA9179C1BD600F393EF /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D00DCAB1179C1BD700F393EF /* PBXTargetDependency */,
+			);
+			name = SciCalcPlotTests;
+			productName = testTests;
+			productReference = D00DCAAB179C1BD700F393EF /* SciCalcPlotTests.octest */;
+			productType = "com.apple.product-type.bundle.ocunit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D00DCA7D179C1BD600F393EF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Jerming;
+				TargetAttributes = {
+					D00DCA84179C1BD600F393EF = {
+						DevelopmentTeam = 59M5HB7F95;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = D00DCA80179C1BD600F393EF /* Build configuration list for PBXProject "SciCalcPlot" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D00DCA7C179C1BD600F393EF;
+			productRefGroup = D00DCA86179C1BD600F393EF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D00DCA84179C1BD600F393EF /* SciCalcPlot */,
+				D00DCAAA179C1BD600F393EF /* SciCalcPlotTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D00DCA83179C1BD600F393EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00DCA93179C1BD600F393EF /* InfoPlist.strings in Resources */,
+				D09C04391854320700E3E92F /* Images.xcassets in Resources */,
+				D00DCA9B179C1BD600F393EF /* Default.png in Resources */,
+				D00DCA9D179C1BD600F393EF /* Default@2x.png in Resources */,
+				D00DCA9F179C1BD600F393EF /* Default-568h@2x.png in Resources */,
+				D00DCAA2179C1BD600F393EF /* iPhoneStoryboard.storyboard in Resources */,
+				D0B1E3F2186B188B001E9E3A /* plotHistory.plist in Resources */,
+				D005FC3B17C2908600578470 /* HTML5core in Resources */,
+				D0380F4017D45571002F77D3 /* history.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00DCAA8179C1BD600F393EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D00DCAA9179C1BD600F393EF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D00DCA81179C1BD600F393EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D09C0452185A99BD00E3E92F /* solveX4ViewController.m in Sources */,
+				D00DCA95179C1BD600F393EF /* main.m in Sources */,
+				D09C0449185A974D00E3E92F /* plotViewController.m in Sources */,
+				D00DCA99179C1BD600F393EF /* AppDelegate.m in Sources */,
+				D09C0441185A4A9800E3E92F /* infoViewController.m in Sources */,
+				D004FA8C18EA1A4D00C8D3F8 /* GraphicsByCoding.m in Sources */,
+				D09C045B185A9E6500E3E92F /* NewtonViewController.m in Sources */,
+				D00DCAA5179C1BD600F393EF /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00DCAA6179C1BD600F393EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D00DCAB1179C1BD700F393EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D00DCA84179C1BD600F393EF /* SciCalcPlot */;
+			targetProxy = D00DCAB0179C1BD700F393EF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D00DCA91179C1BD600F393EF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D00DCA92179C1BD600F393EF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D00DCAA0179C1BD600F393EF /* iPhoneStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D00DCAA1179C1BD600F393EF /* en */,
+			);
+			name = iPhoneStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D00DCABB179C1BD700F393EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D00DCABC179C1BD700F393EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D00DCABE179C1BD700F393EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "test/SciCalcPlot-Prefix.pch";
+				INFOPLIST_FILE = "test/SciCalcPlot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.cnchar.APPID;
+				PRODUCT_NAME = SciCalcPlot;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s arm64";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D00DCABF179C1BD700F393EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "test/SciCalcPlot-Prefix.pch";
+				INFOPLIST_FILE = "test/SciCalcPlot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.cnchar.APPID;
+				PRODUCT_NAME = SciCalcPlot;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s arm64";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D00DCAC1179C1BD700F393EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/test.app/test";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "test/test-Prefix.pch";
+				INFOPLIST_FILE = "testTests/SciCalcPlotTests-Info.plist";
+				PRODUCT_NAME = SciCalcPlotTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D00DCAC2179C1BD700F393EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/test.app/test";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "test/test-Prefix.pch";
+				INFOPLIST_FILE = "testTests/SciCalcPlotTests-Info.plist";
+				PRODUCT_NAME = SciCalcPlotTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D00DCA80179C1BD600F393EF /* Build configuration list for PBXProject "SciCalcPlot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00DCABB179C1BD700F393EF /* Debug */,
+				D00DCABC179C1BD700F393EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D00DCABD179C1BD700F393EF /* Build configuration list for PBXNativeTarget "SciCalcPlot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00DCABE179C1BD700F393EF /* Debug */,
+				D00DCABF179C1BD700F393EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D00DCAC0179C1BD700F393EF /* Build configuration list for PBXNativeTarget "SciCalcPlotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00DCAC1179C1BD700F393EF /* Debug */,
+				D00DCAC2179C1BD700F393EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D00DCA7D179C1BD600F393EF /* Project object */;
+}

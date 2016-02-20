@@ -1,0 +1,458 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <script src="myEval-translator_lexer_parser_evaluator.js"></script>
+            <meta name = "viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;" >
+<script>
+//Copyright (C) 古　哲明 2013 All Rights Reserved.
+//--------------多國語系-----------------------------------------
+var alert1forFunc1,alert2;
+function internatioanlVersionOfFunc2(caseN){switch(caseN){
+    case 1:
+    alert1forFunc1='Only one "=" allowed and needed for your equation.';
+    alert2="In this plotting type, we cannot use '='.";
+    break;
+    case 2:
+    alert1forFunc1='在方程式中要恰恰一個等號';
+    alert2="這個繪圖類型,不能輸入'='";
+    break;
+    case 3:
+    alert1forFunc1='数式の中に ”＝” がないか、または二つ以上含まれています';
+    alert2="この描くタイプには,'='は使えません";
+    break;
+}}
+internatioanlVersionOfFunc2(1);
+///////////////////////////////////////科學記號處理功能Start///////////////////////////////
+var noExponents= function(x){
+    if(typeof x==="string"){x=Number(x);}
+    
+    var data= String(x).split(/[eE]/);
+    if(data.length== 1) return data[0];
+    
+    var  z= '', sign= x<0? '-':'',
+    str= data[0].replace('.', ''),
+    mag= Number(data[1])+ 1;
+    
+    if(mag<0){
+        z= sign + '0.';
+        while(mag++) z += '0';
+        return z + str.replace(/^\-/,'');
+    }
+    mag -= str.length;
+    while(mag--) z += '0';
+    return str + z;
+}
+///////////////////////////////////////科學記號處理功能End///////////////////////////////
+
+/////////////////////plotting!START////////////////////////////////////////////////////////
+var funcType;
+var func;
+var iro;
+var xStart,xEnd,yStart,yEnd,θStart,θEnd,conicX,conicY,conicA,conicB;
+
+
+function draw() {
+	if(funcType=="y = f(x) = "){
+        function plotFUNCinputYofX(x) {return eval(func);}
+		yOFxGraph(plotFUNCinputYofX,xStart,xEnd,yStart,yEnd,iro,1);
+	}
+	else if(funcType=="r = r(θ) = "){
+        function plotFUNCinputPolar(θ) {return eval(func);}
+		polarSystemGraph(plotFUNCinputPolar,xStart,xEnd,yStart,yEnd,iro,1,θStart,θEnd);
+	}
+    else if(funcType=="x = g(y) = "){
+        function plotFUNCinputXofY(y) {return eval(func);}
+		xOFyGraph(plotFUNCinputXofY,xStart,xEnd,yStart,yEnd,iro,1);
+	}
+    else if(funcType=="ᴑ :"){
+        ellipseGraph (conicX,conicY,conicA,conicB,xStart,xEnd,yStart,yEnd,iro,1);
+    }
+    else if(funcType==") ( :"){
+        ParabolaGraph(conicX,conicY,conicA,conicB,xStart,xEnd,yStart,yEnd,iro,1);
+    }
+    else if(funcType=="ꇤ :"){
+        vParabolaGraph(conicX,conicY,conicA,conicB,xStart,xEnd,yStart,yEnd,iro,1);
+    }
+	else if(funcType=="Any : "){
+        function plotFUNCinputAnyXY(x,y){return eval(func);}
+		anyXYfuncGraph(plotFUNCinputAnyXY,xStart,xEnd,yStart,yEnd,iro,1);
+	}
+}
+function yOFxGraph (func,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = thick;
+	ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingX=(xTo-xFrom)/100;//不管範圍,我只取樣四百個點
+    var xx = xFrom;
+    /*Safari & Chrome canvas bug*/
+    var Y=canvas.height-(func(xx)-yFrom)*Yunit;
+    if(0<=Y&&Y<=canvas.height){ctx.moveTo(0 , Y);}
+    else if(Y>canvas.height){Y=canvas.height+1;ctx.moveTo(0 , Y);}
+    else if(Y<0){Y=-1;ctx.moveTo(0 , Y);}
+    /*Safari & Chrome canvas bug*/
+    function pivoting(){
+        xx+=samplingX;
+        /*Safari & Chrome canvas bug*/
+        Y=canvas.height-(func(xx)-yFrom)*Yunit;
+        if(0<=Y&&Y<=canvas.height){ctx.lineTo((xx-xFrom)*Xunit , Y);}
+        else if(Y>canvas.height){Y=canvas.height+1;ctx.lineTo((xx-xFrom)*Xunit , Y);}
+        else if(Y<0){Y=-1;ctx.lineTo((xx-xFrom)*Xunit , Y);}
+        /*Safari & Chrome canvas bug*/
+    }
+    if(xFrom<xTo){while(xx<xTo){pivoting()}}
+    else if(xFrom>xTo){while(xx>xTo){pivoting()}}
+	ctx.stroke();
+}
+
+function polarSystemGraph (func,xFrom,xTo,yFrom,yTo,color,thick,from,end) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+    
+    ctx.beginPath();
+    ctx.lineWidth = thick;
+    ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var THETA=from;
+    var L=func(THETA);
+    /*Safari7 & Firefox26 canvas bug*/
+    var X=(-xFrom+L*Math.cos(THETA))*Xunit;
+    var Y=canvas.height+(yFrom-L*Math.sin(THETA))*Yunit;
+    if(-canvas.width<=X&&X<=2*canvas.width&&-canvas.height<=Y&&Y<=2*canvas.height){ctx.moveTo(X,Y);}
+    /*Safari7 & Firefix26 canvas bug*/
+    function pivoting(){
+        L=func(THETA);
+        /*Safari7 & Firefox26 canvas bug*/
+        X=(-xFrom+L*Math.cos(THETA))*Xunit;
+        Y=canvas.height+(yFrom-L*Math.sin(THETA))*Yunit;
+        if(-canvas.width<=X&&X<=2*canvas.width&&-canvas.height<=Y&&Y<=2*canvas.height){ctx.lineTo(X,Y);}
+        /*Safari7 & Firefix26 canvas bug*/
+    }
+    if(from<end){while(THETA<end){THETA+=0.1;pivoting();}}
+    else if(from>end){while(THETA>end){THETA-=0.1;pivoting();}}
+	ctx.stroke();
+}
+
+function xOFyGraph (func,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = thick;
+	ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingY=(yTo-yFrom)/100;//不管範圍,我只取樣四百個點
+    var yy = yFrom;
+    
+    /*Safari & Chrome canvas bug*/
+    var X=(func(yy)-xFrom)*Xunit;
+    if(0<=X&&X<=canvas.width){ctx.moveTo(X , canvas.height);}
+    else if(X>canvas.width){X=canvas.width+1;ctx.moveTo(X , canvas.height);}
+    else if(X<0){X=-1;ctx.moveTo(X , canvas.height);}
+    /*Safari & Chrome canvas bug*/
+    function pivoting(){
+        yy+=samplingY;
+        /*Safari & Chrome canvas bug*/
+        X=(func(yy)-xFrom)*Xunit;
+        if(0<=X&&X<=canvas.width){ctx.lineTo(X , canvas.height-(yy-yFrom)*Yunit);}
+        else if(X>canvas.width){X=canvas.width+1;ctx.lineTo(X ,  canvas.height-(yy-yFrom)*Yunit);}
+        else if(X<0){X=-1;ctx.lineTo(X ,  canvas.height-(yy-yFrom)*Yunit);}
+        /*Safari & Chrome canvas bug*/
+    }
+    if(yFrom<yTo){while(yy<yTo){pivoting()}}
+    else if(yFrom>yTo){while(yy>yTo){pivoting()}}
+	ctx.stroke();
+}
+function ellipseGraph(x,y,a,b,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+    
+    ctx.beginPath();
+    ctx.lineWidth = thick;
+    ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var x0=-xFrom*Xunit;
+    var y0=canvas.height+yFrom*Yunit;
+    
+    a=a*Xunit;
+    b=b*Yunit;
+    x=(x-xFrom)*Xunit;
+    y=canvas.height+(yFrom-y)*Yunit;
+
+    var k = .5522848;
+    var ox = a * k;
+    var oy = b * k;
+    
+    ctx.beginPath();
+    ctx.moveTo(x - a, y);
+    ctx.bezierCurveTo(x - a, y - oy, x - ox, y - b, x, y - b);
+    ctx.bezierCurveTo(x + ox, y - b, x + a, y - oy, x + a, y);
+    ctx.bezierCurveTo(x + a, y + oy, x + ox, y + b, x, y + b);
+    ctx.bezierCurveTo(x - ox, y + b, x - a, y + oy, x - a, y);
+    ctx.closePath();
+    ctx.stroke();
+}
+function ParabolaGraph(hyperbolaX,hyperbolaY,hyperbolaA,hyperbolaB,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = thick;
+	ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingY=(yTo-yFrom)/100;/*不管範圍,我只取樣100個點*/
+    var yy = yFrom;
+    /*Safari & Chrome canvas bug*/
+    var X=(  hyperbolaA*Math.sqrt(1+Math.pow((yy-hyperbolaY)/hyperbolaB,2))+hyperbolaX  -xFrom)*Xunit;
+    if(0<=X&&X<=canvas.width){ctx.moveTo(X , canvas.height);}
+    else if(X>canvas.width){X=canvas.width+1;ctx.moveTo(X , canvas.height);}
+    else if(X<0){X=-1;ctx.moveTo(X , canvas.height);}
+    /*Safari & Chrome canvas bug*/
+    function pivoting(i){
+        yy+=samplingY;
+        /*Safari & Chrome canvas bug*/
+        X=(i*hyperbolaA*Math.sqrt(1+Math.pow((yy-hyperbolaY)/hyperbolaB,2))+hyperbolaX-xFrom)*Xunit;
+        if(0<=X&&X<=canvas.width){ctx.lineTo(X , canvas.height-(yy-yFrom)*Yunit);}
+        else if(X>canvas.width){X=canvas.width+1;ctx.lineTo(X ,  canvas.height-(yy-yFrom)*Yunit);}
+        else if(X<0){X=-1;ctx.lineTo(X ,  canvas.height-(yy-yFrom)*Yunit);}
+        /*Safari & Chrome canvas bug*/
+    }
+    if(yFrom<yTo){while(yy<yTo){pivoting(1)}}
+    else if(yFrom>yTo){while(yy>yTo){pivoting(1)}}
+    
+    yy = yFrom;
+    ctx.moveTo((  -hyperbolaA*Math.sqrt(1+Math.pow((yy-hyperbolaY)/hyperbolaB,2))+hyperbolaX  -xFrom)*Xunit , canvas.height);
+    if(yFrom<yTo){while(yy<yTo){pivoting(-1)}}
+    else if(yFrom>yTo){while(yy>yTo){pivoting(-1)}}
+	ctx.stroke();
+}
+function vParabolaGraph(hyperbolaX,hyperbolaY,hyperbolaA,hyperbolaB,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = thick;
+	ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingX=(xTo-xFrom)/100;/*不管範圍,我只取樣100個點*/
+    var xx = xFrom;
+    /*Safari & Chrome canvas bug*/
+    var Y=canvas.height-(  hyperbolaB*Math.sqrt(1+Math.pow((xx-hyperbolaX)/hyperbolaA,2))+hyperbolaY  -yFrom)*Yunit;
+    if(0<=Y&&Y<=canvas.height){ctx.moveTo(0 , Y);}
+    else if(Y>canvas.height){Y=canvas.height+1;ctx.moveTo(0 , Y);}
+    else if(Y<0){Y=-1;ctx.moveTo(0 , Y);}
+    /*Safari & Chrome canvas bug*/
+    function pivoting(i){
+        xx+=samplingX;
+        /*Safari & Chrome canvas bug*/
+        Y=canvas.height-( i*hyperbolaB*Math.sqrt(1+Math.pow((xx-hyperbolaX)/hyperbolaA,2))+hyperbolaY  -yFrom)*Yunit;
+        if(0<=Y&&Y<=canvas.height){ctx.lineTo((xx-xFrom)*Xunit , Y);}
+        else if(Y>canvas.height){Y=canvas.height+1;ctx.lineTo((xx-xFrom)*Xunit , Y);}
+        else if(Y<0){Y=-1;ctx.lineTo((xx-xFrom)*Xunit , Y);}
+        /*Safari & Chrome canvas bug*/
+    }
+    if(xFrom<xTo){while(xx<xTo){pivoting(1)}}
+    else if(xFrom>xTo){while(xx>xTo){pivoting(1)}}
+    
+    xx = xFrom;
+    ctx.moveTo(0 , canvas.height-(  -hyperbolaB*Math.sqrt(1+Math.pow((xx-hyperbolaX)/hyperbolaA,2))+hyperbolaY  -yFrom)*Yunit);
+    if(xFrom<xTo){while(xx<xTo){pivoting(-1)}}
+    else if(xFrom>xTo){while(xx>xTo){pivoting(-1)}}
+    
+	ctx.stroke();
+}
+function anyXYfuncGraph(func,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingX=(xTo-xFrom)/400;//不管範圍,我只取樣四百個點
+    var samplingY=(yTo-yFrom)/400;
+    
+    var xx = xFrom;
+    var yy = yFrom;
+    
+    function pivoting(){
+        if( func(xx,yy) < 0.03){
+            ctx.moveTo((xx-xFrom)*Xunit-thick/2 , canvas.height-(yy-yFrom)*Yunit);
+            ctx.lineTo((xx-xFrom)*Xunit+thick/2 , canvas.height-(yy-yFrom)*Yunit);
+        }
+    }//polarSystemGraph＆yOFxGraph也可以用這個方法準確呈現不連續函數的圖形,不過在劇烈變化的圖形狀況下,會不平滑,而且畫的有一點慢
+    
+    if(xFrom<xTo&&yFrom<yTo)while(xx<xTo){while(yy<yTo){pivoting();yy+=samplingY;}yy=yFrom;xx+=samplingX;}
+    else if(xFrom<xTo&&yFrom>yTo)while(xx<xTo){while(yy>yTo){pivoting();yy+=samplingY;}yy=yFrom;xx+=samplingX;}
+    else if(xFrom>xTo&&yFrom<yTo)while(xx>xTo){while(yy<yTo){pivoting();yy+=samplingY;}yy=yFrom;xx+=samplingX;}
+    else if(xFrom>xTo&&yFrom>yTo)while(xx>xTo){while(yy>yTo){pivoting();yy+=samplingY;}yy=yFrom;xx+=samplingX;}
+    
+	ctx.stroke();
+}
+
+function XYaxesGraph(xFrom,xTo,yFrom,yTo) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+    
+	ctx.beginPath();
+	ctx.lineWidth = 1;
+	ctx.strokeStyle = "rgb(128,128,128)";
+    ctx.fillStyle="rgb(128,128,128)";
+    ctx.font="10px  Arial";
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var XaxisDrawingPosition=canvas.height+yFrom*Yunit;
+    var YaxisDrawingPosition=-xFrom*Xunit;
+    var iDelta;
+    var jDelta;
+    
+    /*x axis part*/
+    if(XaxisDrawingPosition<=20){
+        iDelta=0;
+        jDelta=20;
+        ctx.fillText("0",YaxisDrawingPosition+iDelta,XaxisDrawingPosition+jDelta);
+        if(XaxisDrawingPosition<=0)XaxisDrawingPosition=0;
+        ctx.fillText("x",(xFrom<=xTo)?canvas.width-10:10,XaxisDrawingPosition+25);
+    }else{
+        iDelta=0;
+        jDelta=-5;
+        ctx.fillText("0",YaxisDrawingPosition+iDelta,XaxisDrawingPosition+jDelta);
+        if(XaxisDrawingPosition>=canvas.height)XaxisDrawingPosition=canvas.height;
+        ctx.fillText("x",(xFrom<=xTo)?canvas.width-10:10,XaxisDrawingPosition-15);
+    }
+	ctx.moveTo(0,XaxisDrawingPosition); ctx.lineTo(canvas.width , XaxisDrawingPosition);  // X axis
+	ctx.moveTo(((xFrom<=xTo)?canvas.width:0)-10 ,XaxisDrawingPosition-10); ctx.lineTo(((xFrom<=xTo)?canvas.width:0)+10 , XaxisDrawingPosition+10);  // X axis arrow
+	ctx.moveTo(((xFrom<=xTo)?canvas.width:0)-10 ,XaxisDrawingPosition+10); ctx.lineTo(((xFrom<=xTo)?canvas.width:0)+10 , XaxisDrawingPosition-10);  // X axis arrow
+    
+    var interval=Math.abs(xTo-xFrom)/10;
+    var power=Math.floor( Math.round(Math.log(interval)/Math.LN10*1e6)/1e6 );
+    var order=Math.pow(10,power);
+    var coef=interval/order;
+    //alert(coef+"×10^"+Math.log(order)/Math.LN10);
+    if(coef>7.5){coef=10}
+    else if(coef>2.9){coef=5}
+    else if(coef>1.3){coef=2}
+    else {coef=1}
+    interval=coef*order;
+
+    var xx=Math.ceil(xFrom/interval)*interval;
+
+    function pivotingX(){
+        xx=Math.round(xx*1e6)/1e6;
+        if(xx!=0){
+            var ii=(xx-xFrom)*Xunit;
+            ctx.moveTo(ii , XaxisDrawingPosition+5);
+            ctx.lineTo(ii , XaxisDrawingPosition-5);
+            if(power>3||power<-3){
+                var sci=String(xx.toExponential()).split(/[eE]/);
+                sci[0]=sci[0]+"×10";
+                sci[1]=sci[1].replace('+', '');
+                ctx.fillText(sci[0],ii+iDelta,XaxisDrawingPosition+jDelta);
+                ctx.fillText(sci[1],ii+iDelta+sci[0].length*5,XaxisDrawingPosition+jDelta-8);
+            }else ctx.fillText(xx,ii+iDelta,XaxisDrawingPosition+jDelta);
+        }
+    }
+    if(xFrom<xTo){while(xx<xTo){pivotingX();xx+=interval;}}
+    else if(xFrom>xTo){while(xx>xTo){pivotingX();xx-=interval;}}
+    
+    
+    /*y axis part*/
+    var if75width=(YaxisDrawingPosition>=canvas.width*0.75)?1:0;
+    if(if75width){
+        iDelta=-10;
+        jDelta=10;
+        if(YaxisDrawingPosition>=canvas.width){
+            ctx.fillText("0",YaxisDrawingPosition+iDelta,XaxisDrawingPosition+jDelta);
+            YaxisDrawingPosition=canvas.width;
+        }
+        ctx.fillText("y",YaxisDrawingPosition-15 ,(yFrom<=yTo)?10:canvas.height-10);
+    }
+    else {
+        if(YaxisDrawingPosition<=0)YaxisDrawingPosition=0;
+        ctx.fillText("y",YaxisDrawingPosition+13 ,(yFrom<=yTo)?10:canvas.height-10);
+        iDelta=5;
+        jDelta=-1;
+    }
+
+    ctx.moveTo(YaxisDrawingPosition,0); ctx.lineTo(YaxisDrawingPosition,canvas.height);  // Y axis
+    ctx.moveTo(YaxisDrawingPosition-10 ,((yFrom<=yTo)?0:canvas.height)-10); ctx.lineTo(YaxisDrawingPosition+10 , ((yFrom<=yTo)?0:canvas.height)+10);  // Y axis arrow
+	ctx.moveTo(YaxisDrawingPosition-10 ,((yFrom<=yTo)?0:canvas.height)+10); ctx.lineTo(YaxisDrawingPosition+10 , ((yFrom<=yTo)?0:canvas.height)-10);  // Y axis arrow
+    
+    interval=Math.abs(yTo-yFrom)/16;
+    power=Math.floor( Math.round(Math.log(interval)/Math.LN10*1e6)/1e6 );
+    order=Math.pow(10,power);
+    coef=interval/order;
+    //alert(coef+"×10^"+Math.log(order)/Math.LN10);
+    if(coef>7.5){coef=10}
+    else if(coef>2.9){coef=5}
+    else if(coef>1.3){coef=2}
+    else {coef=1}
+    interval=coef*order;
+    
+    var yy=Math.ceil(yFrom/interval)*interval;
+
+    function pivotingY(){
+        yy=Math.round(yy*1e6)/1e6;
+//alert(yy.toString().length);
+        if(yy!=0){
+            var jj=canvas.height-(yy-yFrom)*Yunit;
+            ctx.moveTo(YaxisDrawingPosition-5 , jj);
+            ctx.lineTo(YaxisDrawingPosition+5 , jj);
+            if(power>3||power<-3){
+                var sci=String(yy.toExponential()).split(/[eE]/);
+                sci[0]=sci[0]+"×10";
+                sci[1]=sci[1].replace('+', '');
+                ctx.fillText(sci[0],YaxisDrawingPosition+iDelta-((if75width)?(sci[0]+sci[1]).length*5:0),jj+jDelta);
+                ctx.fillText(sci[1],YaxisDrawingPosition+iDelta-((if75width)?sci[1].length*5:sci[0].length*(-5)),jj+jDelta-8);
+            }else ctx.fillText(yy,YaxisDrawingPosition+iDelta-((if75width)?yy.toString().length*5:0),jj+jDelta);
+        }
+    }
+    if(yFrom<yTo){while(yy<yTo){pivotingY();yy+=interval;}}
+    else if(yFrom>yTo){while(yy>yTo){pivotingY();yy-=interval;}}
+    
+    
+	ctx.stroke();
+}
+
+function trackMe(x,y){
+    var canvas=document.getElementById("canvas2");
+    var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = 0.5;
+	ctx.strokeStyle = "#FF6600";
+    ctx.moveTo(x,0); ctx.lineTo(x , canvas.height);  // 縱 axis
+    ctx.moveTo(0,y); ctx.lineTo(canvas.width , y);  // 橫 axis
+    ctx.stroke();
+}
+function showTrackingData(color,xValue,yValue,x,y){
+    var canvas=document.getElementById("canvas2");
+    var ctx=canvas.getContext("2d");
+    ctx.fillStyle=color;
+    ctx.font="13px Arial";
+    ctx.fillText("("+xValue+" , "+yValue+")",x,y);
+}
+
+
+/////////////////////plottingEND////////////////////////////////////////////////////////
+</script>
+    </head>
+    
+    <body style="background-color:#FFFFFF;">
+        <noscript><p style="color: red;font-size:x-large">You must enable Javascript in you browser to use this website correctly!</p></noscript>
+        <canvas id="canvas" width="320" height="568"  style="top:0px; left:0px; position:absolute;">No canvas support!</canvas>
+        <canvas id="canvas2" width="320" height="568"  style="top:0px; left:0px; position:absolute;">No canvas support!</canvas>
+    </body>
+</html>
