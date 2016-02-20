@@ -1,0 +1,1498 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="data/icon.ico">
+	<title>Calculator - CANDY HOUSE</title>
+	<meta name="robots" content="noindex,nofollow,noarchive">
+	<script src="myEval-translator_lexer_parser_evaluator.js"></script>
+<style>
+    #plotFUNCcolor{ -webkit-appearance: none; }/*為了google chrome的select背景色*/
+	.doNotSelect{
+		-webkit-user-select: none;/*user-select在html5尚未定義2013年初*/
+		-moz-user-select: none;
+		-ms-user-select: none;
+	}
+
+	.smallbuttonStyle{
+		border:0px;
+		background-color:#B5B5B5;
+		color:#FFFFFF;
+		text-align:center;
+		vertical-align:middle;
+		font-size:12px;
+		font-weight:bold;
+		font-style:italic;
+		font-family:'Times New Roman','serif';
+		border-radius: 2px;
+		cursor:pointer;
+		-webkit-user-select: none;/*user-select在html5尚未定義2013年初*/
+		-moz-user-select: none;
+		-ms-user-select: none;
+	}
+	.bigbuttonStyle{
+		border:0px;
+		background-color:#B5B5B5;
+		color:#FFFFFF;
+		text-align:center;
+		vertical-align:middle;
+		font-size:18px;
+		font-weight:bold; 
+		border-radius: 2px;
+		cursor:pointer;
+		-webkit-user-select: none;/*user-select在html5尚未定義2013年初*/
+		-moz-user-select: none;
+		-ms-user-select: none;
+	}
+	.originalbuttonStyle{
+		-webkit-appearance: none;/*First,remove default style of Safari on iOS*/
+		border:0px;
+		background-color:#B5B5B5;
+		color:#FFFFFF;
+		border-radius: 2px;
+		cursor:pointer;
+	}
+	.smallbuttonStyle:active,.bigbuttonStyle:active,.originalbuttonStyle:active{
+		background-color:black;
+	}
+	.textareaStyle2{
+		font-family:'Times New Roman','serif';
+		font-style:italic;
+		overflow:auto;
+		border-width: 0px;
+	}
+	.corner5pxHide{
+		border-radius: 5px;
+		background-color:#F0F0F0;
+	}
+</style>
+
+<script>
+//Copyright (C) 古　哲明 2013 All Rights Reserved.
+//--------------多國語系-----------------------------------------
+var alert1forFunc1,alert2,alert1forFunc2,NewtonPost1,NewtonPost2,NewtonPost3,NewtonPost4,NewtonPost5,solverPost1,solverPost2,solverPost3,solverPost4,solverPost5,solverPost6,solverPost7,solverPost8,solverPost9,solverPost10;
+function internatioanlVersionOfFunc2(caseN){switch(caseN){
+    case 1:
+    alert1forFunc1='Only one "=" allowed and needed for your equation.';
+    alert1forFunc2="Variable x doesn‘t exist in your equation.";
+    alert2="In this plotting type, we cannot use '='.";
+    NewtonPost1="<br>Newton‘s Method<br> starting from x = ";/*'要用‘取代！不然會會背判斷只有一個而出錯！！*/
+    NewtonPost2="<br> had found x = ";
+    NewtonPost3="<br> is a solution of<br>";
+    NewtonPost4="<br> could NOT found a solution of<br>";
+    NewtonPost5="<br> within 100 times’ trying.<br><br>";
+    solverPost1=' = 0 has any solutions<br><br>';
+    solverPost2=' = 0 has no solution.<br><br>';
+    solverPost3='<br>The only one solution of<br>';
+    solverPost4=' = 0<br>is :<br>x = ';
+    solverPost5='<br><br>';
+    solverPost6='<br>The 2 solutions of<br>';
+    solverPost7=' = 0<br>are :<br>x<sub>1</sub> = ';
+    solverPost8='<br>The 3 solutions of<br>';
+    solverPost9=' = 0<br>are :<br>x<sub>1</sub> = ';
+    solverPost10='<br>The 4 solutions of<br>';
+    solverPost11=' = 0<br>are :<br>x<sub>1</sub> = ';
+    break;
+    
+    case 2:
+    alert1forFunc1='在方程式中要恰恰一個等號';
+    alert1forFunc2='在方程式中沒有變數 x';
+    alert2="這個繪圖類型,不能輸入'='";
+    NewtonPost1="<br>從 x = ";
+    NewtonPost2=" 開始猜,<br>牛頓的數值解法 已經找到 <br>x = ";
+    NewtonPost3=" 是這個方程式的一個解：<br>";
+    NewtonPost4=" 開始猜,<br>牛頓的數值解法 不能 在一百次以內找到<br>";
+    NewtonPost5="<br> 的一個解<br><br>";
+    solverPost1=' = 0 有任意解<br><br>';
+    solverPost2=' = 0 沒有解<br><br>';
+    solverPost3='<br>';
+    solverPost4=' = 0<br>的唯一解是 :<br>x = ';
+    solverPost5='<br><br>';
+    solverPost6='<br>';
+    solverPost7=' = 0<br>的兩個解是 :<br>x<sub>1</sub> = ';
+    solverPost8='<br>';
+    solverPost9=' = 0<br>的三個解是 :<br>x<sub>1</sub> = ';
+    solverPost10='<br>';
+    solverPost11=' = 0<br>的四個解是 :<br>x<sub>1</sub> = ';
+    break;
+    case 3:
+    alert1forFunc1='数式の中に ”＝” がないか、または二つ以上含まれています';
+    alert1forFunc2='数式の中に x がありません';
+    alert2="この描くタイプには,'='は使えません";
+    NewtonPost1="<br>x = ";
+    NewtonPost2=" から始め、<br>ニュートン法により、<br>x = ";
+    NewtonPost3=" がこの式の一つの解となる：<br>";
+    NewtonPost4=" から始め、<br>ニュートン法により百回試したが、<br>";
+    NewtonPost5="<br> の解は見つかりませんでした<br><br>";
+    solverPost1=' = 0 は解が無数にある<br><br>';
+    solverPost2=' = 0 は解がない<br><br>';
+    solverPost3='<br>';
+    solverPost4=' = 0<br>の唯一の解は：<br>x = ';
+    solverPost5='<br>である<br><br>';
+    solverPost6='<br>';
+    solverPost7=' = 0<br>の二つの解は：<br>x<sub>1</sub> = ';
+    solverPost8='<br>';
+    solverPost9=' = 0<br>の三つの解は：<br>x<sub>1</sub> = ';
+    solverPost10='<br>';
+    solverPost11=' = 0<br>の四つの解は：<br>x<sub>1</sub> = ';
+    break;
+}}
+internatioanlVersionOfFunc2(1);
+
+
+//---------共用參數定義區(置頂方便查找)----------------------
+var plotPanelMark = 0;
+var othersPanelMark = 0;
+var arc = 0;
+var hyp = 0;
+var AreaDecided;
+//-------------------------------------------------------
+
+function checkonload(){
+	AreaDecided=document.getElementById('draft');
+	AreaDecided.focus();
+}
+
+function typing(str){
+	var str1 = AreaDecided.value;
+	var prefix = AreaDecided.value.substring(0, AreaDecided.selectionStart);
+	var suffix = AreaDecided.value.substring(AreaDecided.selectionEnd);
+	if(str1.length >= prefix.length){
+		var rememberLocation = AreaDecided.selectionStart;
+		AreaDecided.value = prefix + str + suffix;
+		AreaDecided.focus();
+		AreaDecided.setSelectionRange(rememberLocation + str.length,rememberLocation + str.length);
+	}
+}
+function reviseOne(){
+	var str = AreaDecided.value;
+	var prefix = AreaDecided.value.substring(0, AreaDecided.selectionStart);
+	var suffix = AreaDecided.value.substring(AreaDecided.selectionEnd);
+	if(str.length >= prefix.length && AreaDecided.selectionStart==AreaDecided.selectionEnd){
+		var rememberLocation = AreaDecided.selectionStart;
+		prefix = prefix.substr(0, prefix.length - 1);
+		AreaDecided.value = prefix + suffix;
+		AreaDecided.focus();
+		AreaDecided.setSelectionRange(rememberLocation - 1,rememberLocation - 1);
+	}
+	else if(str.length > prefix.length && AreaDecided.selectionStart < AreaDecided.selectionEnd){
+		var rememberLocation = AreaDecided.selectionStart;
+		AreaDecided.value = prefix + suffix;
+		AreaDecided.focus();
+		AreaDecided.setSelectionRange(rememberLocation,rememberLocation);
+	}
+}
+function cleareq(){
+	AreaDecided.value ='';
+	AreaDecided.innerHTML ='';
+}
+
+function execute(){
+	var input = document.getElementById("draft").value;
+	var RESULT=	document.getElementById("result");
+	AreaDecided.focus();//避免游標消失
+	RESULT.innerHTML = myEval(input,'all');
+	RESULT.scrollTop=RESULT.scrollHeight;
+}
+
+function openPlotPanel(){
+	plotPanelMark = (plotPanelMark + 1) % 2;
+	if(plotPanelMark == 1){
+		document.getElementById('plotPanelButtonID').style.background = '#FF0000';
+	}else{
+		document.getElementById('plotPanelButtonID').style.background = '#B5B5B5';
+	}
+}
+function openOthersPanel(){
+	othersPanelMark = (othersPanelMark + 1) % 2;
+	if(othersPanelMark == 1){
+		document.getElementById('othersPanelButtonID').style.background = '#FF0000';
+	}else{
+		document.getElementById('othersPanelButtonID').style.background = '#B5B5B5';
+	}
+}
+function arcmode(){
+	arc = (arc + 1) % 2;
+	if(arc == 1){
+		document.getElementById('arc').style.background = '#FF0000';
+	}else{
+		document.getElementById('arc').style.background = '#B5B5B5';
+	}
+}
+function hypmode(){
+	hyp = (hyp + 1) % 2;
+	if(hyp == 1){
+		document.getElementById('hyp').style.background = '#FF0000';
+	}else{
+		document.getElementById('hyp').style.background = '#B5B5B5';
+	}
+}
+function trifunc(str){
+	if(arc == 0 && hyp == 0){
+		typing(str + '(');
+	}
+	else if(arc == 0 && hyp == 1){
+		typing(str + 'h(');
+	}
+	else if(arc == 1 && hyp == 0){
+		typing('a' + str + '(');
+	}
+	else if(arc == 1 && hyp == 1){
+		typing('a' + str + 'h(');
+	}
+}
+///////////////////////////////////////科學記號處理功能Start///////////////////////////////
+
+function myScientificNotation(x){
+    if(typeof x==="string"){x=Number(x);}
+    
+    var data= String(x).split(/[eE]/);
+    if(data.length== 1) return data[0];
+    
+    return data[0]+"×10<sup>"+data[1].replace(/^\+/,'')+"</sup>";
+}
+var noExponents= function(x){
+    if(typeof x==="string"){x=Number(x);}
+    
+    var data= String(x).split(/[eE]/);
+    if(data.length== 1) return data[0];
+    
+    var  z= '', sign= x<0? '-':'',
+    str= data[0].replace('.', ''),
+    mag= Number(data[1])+ 1;
+    
+    if(mag<0){
+        z= sign + '0.';
+        while(mag++) z += '0';
+        return z + str.replace(/^\-/,'');
+    }
+    mag -= str.length;
+    while(mag--) z += '0';
+    return str + z;
+}
+///////////////////////////////////////科學記號處理功能End///////////////////////////////
+
+//////////////////////////////////////////////solverSTART/////////////////////////////////////////////////////////////////////////////////////////////////
+function isNumeric(n) {
+    return !isNaN(n) && isFinite(n);
+}
+function trivalEqSolver(a){
+    if(a==0){a='0'}
+    var check=myEval(a);
+	if(check==0) document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += MathMLthis(a,'all')+solverPost1;
+    else document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += MathMLthis(a,'all')+solverPost2;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+function LinearEqSolver(a,b){
+	if(a==0){trivalEqSolver(b);return}
+	if(b==0){b='0'}
+	var s=myEval('-('+b+')/('+a+')');//如果不這樣寫,abc如果有一個是string的話,b×b-4×a×c無法計算
+	var eq;
+    //-----
+	if(isNumeric(a)){
+        if(a==1){eq='x';}
+        else{eq=a+'·x';}
+    }
+    else{eq='('+MathMLthis(a,'all')+')·x'}
+    //-----
+    if(isNumeric(b)){
+        if(b[0]==='-'||b[0]==='+'){eq+=" "+b;}
+        else if(b!=0){eq+=' + '+b;}
+    }
+    else if(b!=0){eq+=' + ('+MathMLthis(b,'all')+')'}
+    //------
+	document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += solverPost3+eq+solverPost4+s+solverPost5;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+
+
+
+function QuadraticEqSolverS1(a,b,c){
+    return myEval('(-('+b+')+√(('+b+')^2-4×('+a+')×('+c+')))/(2×('+a+'))');
+}
+function QuadraticEqSolverS2(a,b,c){
+    return myEval('(-('+b+')-√(('+b+')^2-4×('+a+')×('+c+')))/(2×('+a+'))');
+}
+function QuadraticEqSolver(a,b,c){
+	if(a==0){LinearEqSolver(b,c);return}
+	if(b==0){b='0'}if(c==0){c='0'}//for "undefined string"如果已知是string則0表示空集合,'0'才可解析成零
+	var s1=myEval('(-('+b+')+√(('+b+')^2-4×('+a+')×('+c+')))/(2×('+a+'))');//如果不這樣寫,abc如果有一個是string的話,b×b-4×a×c無法計算
+    var s2=myEval('(-('+b+')-√(('+b+')^2-4×('+a+')×('+c+')))/(2×('+a+'))');
+	var eq;
+    //-----
+	if(isNumeric(a)){
+        if(a==1){eq='x<sup>2</sup>';}
+        else{eq=a+'·x<sup>2</sup>';}
+    }
+    else{eq='('+MathMLthis(a,'all')+')·x<sup>2</sup>'}
+    //-----
+    if(isNumeric(b)){
+        if(b==1){eq+=' + x';}
+        else if(b[0]==='-' || b[0]==='+'){eq+=" "+b+'·x';}
+        else if(b!=0){eq+=' + '+b+'·x';}
+    }
+    else if(b!=0){eq+=' + ('+MathMLthis(b,'all')+')·x'}
+    //-----
+    if(isNumeric(c)){
+        if(c[0]==='-' || c[0]==='+'){eq+=" "+c;}
+        else if(c!=0){eq+=' + '+c;}
+    }
+    else if(c!=0){eq+=' + ('+MathMLthis(c,'all')+')'}
+    //------
+	document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += solverPost6+eq+solverPost7+s1+'<br>x<sub>2</sub> = '+s2+solverPost5;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+
+
+
+
+
+
+
+
+function CubicEqSolverS1(a,b,c,d){
+    var A='(9×('+a+')×('+b+')×('+c+')-27×('+a+')^2×('+d+')-2×('+b+')^3)/54/('+a+')^3';
+    var B='(3×('+a+')×('+c+')-('+b+')^2)/9/('+a+')^2';
+    var C='-('+b+')/3/('+a+')';
+    var s1=myEval(   C+'+∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+    return s1;
+}
+function CubicEqSolverS2(a,b,c,d){
+    var A='(9×('+a+')×('+b+')×('+c+')-27×('+a+')^2×('+d+')-2×('+b+')^3)/54/('+a+')^3';
+    var B='(3×('+a+')×('+c+')-('+b+')^2)/9/('+a+')^2';
+    var C='-('+b+')/3/('+a+')';
+    var s2=myEval(   C+'+(-1+√(3)×i)/2×∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+(-1-√(3)×i)/2×∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+    return s2;
+}
+function CubicEqSolverS3(a,b,c,d){
+    var A='(9×('+a+')×('+b+')×('+c+')-27×('+a+')^2×('+d+')-2×('+b+')^3)/54/('+a+')^3';
+    var B='(3×('+a+')×('+c+')-('+b+')^2)/9/('+a+')^2';
+    var C='-('+b+')/3/('+a+')';
+    var s3=myEval(   C+'+(-1-√(3)×i)/2×∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+(-1+√(3)×i)/2×∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+    return s3;
+}
+function CubicEqSolver(a,b,c,d){
+	if(a==0){QuadraticEqSolver(b,c,d);return}
+    var s1,s2,s3,s4;
+	if(b==0){b='0'}if(c==0){c='0'}if(d==0){d='0'}
+    if(d==0&&c==0){
+        s1=0;
+        s2=0;
+        s3=myEval('-('+b+')/('+a+')');
+    }else if(d==0){
+        s1=0;
+        s2=QuadraticEqSolverS1(a,b,c);
+        s3=QuadraticEqSolverS2(a,b,c);
+    }else{
+        var A='(9×('+a+')×('+b+')×('+c+')-27×('+a+')^2×('+d+')-2×('+b+')^3)/54/('+a+')^3';
+        var B='(3×('+a+')×('+c+')-('+b+')^2)/9/('+a+')^2';
+        var C='-('+b+')/3/('+a+')';
+        var DELTA='('+A+')^2+('+B+')^3';
+        if(myEval(A)==0&&myEval(B)==0){//避免算不太準
+            s1=s2=s3=myEval(C);
+        }else if(myEval(DELTA)==0&&myEval(B)!=0){//避免算不太準
+            s1=s2=myEval( '(9×('+a+')×('+d+')-('+b+')×('+c+'))/2/(('+b+')^2-3×('+a+')×('+c+'))' );
+            s3=myEval( '(4×('+b+')×('+c+')-9×('+a+')×('+d+')-('+b+')^3/('+a+'))/(('+b+')^2-3×('+a+')×('+c+'))' );
+        }else{
+            s1=myEval(   C+'+∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+            s2=myEval(   C+'+(-1+√(3)×i)/2×∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+(-1-√(3)×i)/2×∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+            s3=myEval(   C+'+(-1-√(3)×i)/2×∛('+A+'+√(('+A+')^2+('+B+')^3))'+'+(-1+√(3)×i)/2×∛('+A+'-√(('+A+')^2+('+B+')^3))'   );
+        }
+    }
+    var eq;
+    //-----
+	if(isNumeric(a)){
+        if(a==1){eq='x<sup>3</sup>';}
+        else{eq=a+'·x<sup>3</sup>';}
+    }
+    else{eq='('+MathMLthis(a,'all')+')·x<sup>3</sup>'}
+    //-----
+    if(isNumeric(b)){
+        if(b==1){eq+=' + x<sup>2</sup>';}
+        else if(b[0]==='-' || b[0]==='+'){eq+=" "+b+'·x<sup>2</sup>';}
+        else if(b!=0){eq+=' + '+b+'·x<sup>2</sup>';}
+    }
+    else if(b!=0){eq+=' + ('+MathMLthis(b,'all')+')·x<sup>2</sup>'}
+    //-----
+    if(isNumeric(c)){
+        if(c==1){eq+=' + x';}
+        else if(c[0]==='-' || c[0]==='+'){eq+=" "+c+'·x';}
+        else if(c!=0){eq+=' + '+c+'·x';}
+    }
+    else if(c!=0){eq+=' + ('+MathMLthis(c,'all')+')·x'}
+    //-----
+    if(isNumeric(d)){
+        if(d[0]==='-' || d[0]==='+'){eq+=" "+d;}
+        else if(d!=0){eq+=' + '+d;}
+    }
+    else if(d!=0){eq+=' + ('+MathMLthis(d,'all')+')'}
+    //------
+	document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += solverPost8+eq+solverPost9+s1+'<br>x<sub>2</sub> = '+s2+'<br>x<sub>3</sub> = '+s3+solverPost5;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+function QuarticEqSolver(){
+    var a = document.getElementById("aValueQE").value;
+	var b = document.getElementById("bValueQE").value;
+	var c = document.getElementById("cValueQE").value;
+	var d = document.getElementById("dValueQE").value;
+	var e = document.getElementById("eValueQE").value;
+    if(a==0){CubicEqSolver(b,c,d,e);return}
+    var s1,s2,s3,s4;
+    if(b==0){b='0'}if(c==0){c='0'}if(d==0){d='0'}if(e==0){e='0'}
+    if(e==0&&d==0&&c==0){
+        s1=0;
+        s2=0;
+        s3=0;
+        s4=myEval('-('+b+')/('+a+')');
+    }else if(e==0&&d==0){/*wiki判別式不全面,例如x^4+3•x^3=0爆炸*/
+        s1=0;
+        s2=0;
+        s3=QuadraticEqSolverS1(a,b,c);
+        s4=QuadraticEqSolverS2(a,b,c);
+    }else if(e==0){/*d=e=0狀況,其實用公式解也可以,只是怕wiki公式解的判別式不全面*/
+        s1=0;
+        s2=CubicEqSolverS1(a,b,c,d);
+        s3=CubicEqSolverS2(a,b,c,d);
+        s4=CubicEqSolverS3(a,b,c,d);
+    }else if(b==0&&d==0){
+        s1=myEval('√('+QuadraticEqSolverS1(a,c,e)+')');
+        s2=myEval('√('+QuadraticEqSolverS2(a,c,e)+')');
+        s3=myEval('-√('+QuadraticEqSolverS1(a,c,e)+')');
+        s4=myEval('-√('+QuadraticEqSolverS2(a,c,e)+')');
+    }else{
+        var DELTA='256×(('+a+')×('+e+'))^3-192×('+a+')^2×('+b+')×('+d+')×('+e+')^2-128×(('+a+')×('+c+')×('+e+'))^2+144×('+a+')^2×('+c+')×('+d+')^2×('+e+')-27×('+a+')^2×('+d+')^4+144×('+a+')×('+b+')^2×('+c+')×('+e+')^2-6×('+a+')×(('+b+')×('+d+'))^2×('+e+')-80×('+a+')×('+b+')×('+c+')^2×('+d+')×('+e+')+18×('+a+')×('+b+')×('+c+')×('+d+')^3+16×('+a+')×('+c+')^4×('+e+')-4×('+a+')×('+c+')^3×('+d+')^2-27×('+b+')^4×('+e+')^2+18×('+b+')^3×('+c+')×('+d+')×('+e+')-4×(('+b+')×('+d+'))^3-4×('+b+')^2×('+c+')^3×('+e+')+(('+b+')×('+c+')×('+d+'))^2';
+        var C='('+c+')^2-3×('+b+')×('+d+')+12×('+a+')×('+e+')';
+        if(myEval(DELTA)==0 && myEval(C)==0){
+            s1=s2=s3=s4=myEval('-('+b+')/4/('+a+')');
+        }else{
+            var A='-('+b+')/('+a+')';
+            var B='('+c+')/('+a+')';
+            var D='2×('+c+')^3-9×('+b+')×('+c+')×('+d+')+27×('+a+')×('+d+')^2+27×('+b+')^2×('+e+')-72×('+a+')×('+c+')×('+e+')';
+            var E='-('+b+')^3+4×('+a+')×('+b+')×('+c+')-8×('+a+')^2×('+d+')';
+            var A2='∛('+D+'+√(-4×('+C+')^3+('+D+')^2))';
+            var A3='∛(2)×('+C+')/3/('+a+')/'+A2+'+'+A2+'/3/∛(2)/('+a+')';
+            var A4='√(('+A+')^2/4-2/3×'+B+'+'+A3+')';
+            s1=myEval(   A+'/4+'+A4+'/2-√(('+A+')^2/2-4/3×('+B+')-('+A3+')+('+E+')/4/('+a+')^3/'+A4+')/2'   );
+            s2=myEval(   A+'/4+'+A4+'/2+√(('+A+')^2/2-4/3×('+B+')-('+A3+')+('+E+')/4/('+a+')^3/'+A4+')/2'   );
+            s3=myEval(   A+'/4-'+A4+'/2-√(('+A+')^2/2-4/3×('+B+')-('+A3+')-('+E+')/4/('+a+')^3/'+A4+')/2'   );
+            s4=myEval(   A+'/4-'+A4+'/2+√(('+A+')^2/2-4/3×('+B+')-('+A3+')-('+E+')/4/('+a+')^3/'+A4+')/2'   );
+        }
+    }
+    var eq;
+    //-----
+	if(isNumeric(a)){
+        if(a==1){eq='x<sup>4</sup>';}
+        else{eq=a+'·x<sup>4</sup>';}
+    }
+    else{eq='('+MathMLthis(a,'all')+')·x<sup>4</sup>'}
+    //-----
+    if(isNumeric(b)){
+        if(b==1){eq+=' + x<sup>3</sup>';}
+        else if(b[0]==='-' || b[0]==='+'){eq+=" "+b+'·x<sup>3</sup>';}
+        else if(b!=0){eq+=' + '+b+'·x<sup>3</sup>';}
+    }
+    else if(b!=0){eq+=' + ('+MathMLthis(b,'all')+')·x<sup>3</sup>'}
+    //-----
+    if(isNumeric(c)){
+        if(c==1){eq+=' + x<sup>2</sup>';}
+        else if(c[0]==='-' || c[0]==='+'){eq+=" "+c+'·x<sup>2</sup>';}
+        else if(c!=0){eq+=' + '+c+'·x<sup>2</sup>';}
+    }
+    else if(c!=0){eq+=' + ('+MathMLthis(c,'all')+')·x<sup>2</sup>'}
+    //-----
+    if(isNumeric(d)){
+        if(d==1){eq+=' + x';}
+        else if(d[0]==='-' || d[0]==='+'){eq+=" "+d+'·x';}
+        else if(d!=0){eq+=' + '+d+'·x';}
+    }
+    else if(d!=0){eq+=' + ('+MathMLthis(d,'all')+')·x'}
+    //-----
+    if(isNumeric(e)){
+        if(e[0]==='-'||e[0]==='+'){eq+=" "+e;}
+        else if(e!=0){eq+=' + '+e;}
+    }
+    else if(e!=0){eq+=' + ('+MathMLthis(e,'all')+')'}
+    //------
+	document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += solverPost10+eq+solverPost11+s1+'<br>x<sub>2</sub> = '+s2+'<br>x<sub>3</sub> = '+s3+'<br>x<sub>4</sub> = '+s4+solverPost5;
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+////////////////////////////sloverEND///////////////////////////////////////////////////////////////
+
+/////////////////////plotting!START////////////////////////////////////////////////////////
+
+function draw() {
+	var xFrom=myEval(document.getElementById('plotFUNCkeyinFromX').value,'ReturnFinalReal');
+	var xTo=myEval(document.getElementById('plotFUNCkeyinToX').value,'ReturnFinalReal');
+	var yFrom=myEval(document.getElementById('plotFUNCkeyinFromY').value,'ReturnFinalReal');
+	var yTo=myEval(document.getElementById('plotFUNCkeyinToY').value,'ReturnFinalReal');
+	var iro=document.getElementById('plotFUNCcolor').value;//meansいろ
+    XYaxesGraph(xFrom,xTo,yFrom,yTo);
+
+	if(document.getElementById("plotFuncType").value=="y = f(x) = "){
+        if(document.getElementById('plotFUNCkeyin').value.match(/=/)){alert(alert2);return 漢字讓你故障}
+        var str=document.getElementById('plotFUNCkeyin').value;
+        str= makeComputerUnderstandThisMath(str,"ReturnFinalFormula");
+        function plotFUNCinputYofX(x) {return eval(str);}
+		yOFxGraph(plotFUNCinputYofX,xFrom,xTo,yFrom,yTo,iro,1);
+	}
+	else if(document.getElementById("plotFuncType").value=="r = r(θ) = "){
+		var rotateFrom=myEval(document.getElementById('plotFUNCkeyinFrom').value,'ReturnFinalReal');
+		var rotateTo=myEval(document.getElementById('plotFUNCkeyinTo').value,'ReturnFinalReal');
+        if(document.getElementById('plotFUNCkeyin').value.match(/=/)){alert(alert2);return 漢字讓你故障}
+        var str=document.getElementById('plotFUNCkeyin').value;
+        str= makeComputerUnderstandThisMath(str,"ReturnFinalFormula");
+        function plotFUNCinputPolar(θ) {return eval(str);}
+		polarSystemGraph(plotFUNCinputPolar,xFrom,xTo,yFrom,yTo,iro,1,rotateFrom,rotateTo);
+	}
+    else if(document.getElementById("plotFuncType").value=="x = g(y) = "){
+        if(document.getElementById('plotFUNCkeyin').value.match(/=/)){alert(alert2);return 漢字讓你故障}
+        var str=document.getElementById('plotFUNCkeyin').value;
+        str= makeComputerUnderstandThisMath(str,"ReturnFinalFormula");
+        function plotFUNCinputXofY(y) {return eval(str);}
+		xOFyGraph(plotFUNCinputXofY,xFrom,xTo,yFrom,yTo,iro,1);
+	}
+    else if(document.getElementById("plotFuncType").value=="ㅇ:"){
+        var ellipseX=document.getElementById('ellipseX').value;
+        var ellipseY=document.getElementById('ellipseY').value;
+        var ellipseA=Math.abs(myEval(document.getElementById('ellipseA').value,'ReturnFinalReal'));
+        var ellipseB=Math.abs(myEval(document.getElementById('ellipseB').value,'ReturnFinalReal'));
+        if(ellipseX==0){ellipseX=0}
+        else{ellipseX=myEval(ellipseX,'ReturnFinalReal');}
+        if(ellipseY==0){ellipseY=0}
+        else{ellipseY=myEval(ellipseY,'ReturnFinalReal');}
+        ellipseGraph (ellipseX,ellipseY,ellipseA,ellipseB,xFrom,xTo,yFrom,yTo,iro,1);
+    }
+    else if(document.getElementById("plotFuncType").value==")(:"){
+        var hyperbolaX=document.getElementById('hyperbolaX').value;
+        var hyperbolaY=document.getElementById('hyperbolaY').value;
+        var hyperbolaA=myEval(document.getElementById('hyperbolaA').value,'ReturnFinalReal');
+        var hyperbolaB=myEval(document.getElementById('hyperbolaB').value,'ReturnFinalReal');
+        if(hyperbolaX==0){hyperbolaX=0}
+        else{hyperbolaX=myEval(hyperbolaX,'ReturnFinalReal');}
+        if(hyperbolaY==0){hyperbolaY=0}
+        else{hyperbolaY=myEval(hyperbolaY,'ReturnFinalReal');}
+        ParabolaGraph(hyperbolaX,hyperbolaY,hyperbolaA,hyperbolaB,xFrom,xTo,yFrom,yTo,iro,1);
+    }
+    else if(document.getElementById("plotFuncType").value=="ꇤ:"){
+        var vhyperbolaX=document.getElementById('vhyperbolaX').value;
+        var vhyperbolaY=document.getElementById('vhyperbolaY').value;
+        var vhyperbolaA=myEval(document.getElementById('vhyperbolaA').value,'ReturnFinalReal');
+        var vhyperbolaB=myEval(document.getElementById('vhyperbolaB').value,'ReturnFinalReal');
+        if(vhyperbolaX==0){vhyperbolaX=0}
+        else{vhyperbolaX=myEval(vhyperbolaX,'ReturnFinalReal');}
+        if(vhyperbolaY==0){vhyperbolaY=0}
+        else{vhyperbolaY=myEval(vhyperbolaY,'ReturnFinalReal');}
+        vParabolaGraph(vhyperbolaX,vhyperbolaY,vhyperbolaA,vhyperbolaB,xFrom,xTo,yFrom,yTo,iro,1);
+    }
+	else if(document.getElementById("plotFuncType").value=="any equation of x and y :"){
+        var str=document.getElementById('plotFUNCkeyin').value;
+        if(!str.match(/\=/)||str.match(/\=/g).length!=1){alert(alert1forFunc1);return 漢字讓你故障};
+        str = 'abs(('+str.replace(/\=/,')-(')+'))/(abs('+str.replace(/\=/,')+abs(')+')+0.000074)';/*演化方向:|直接相減|<0.01=>三角不等式<0.01=>柯西不等式<0.01~0.0001->三角不等式<0.03*/
+        str= makeComputerUnderstandThisMath(str,"ReturnFinalFormula");
+        function plotFUNCinputAnyXY(x,y){return eval(str);}
+		anyXYfuncGraph(plotFUNCinputAnyXY,xFrom,xTo,yFrom,yTo,iro,1);
+	}
+}
+
+function yOFxGraph (func,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = thick;
+	ctx.strokeStyle = color;
+
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingX=(xTo-xFrom)/400;//不管範圍,我只取樣四百個點
+    var xx = xFrom;
+    ctx.moveTo(0 , canvas.height-(func(xx)-yFrom)*Yunit);
+    function pivoting(){
+        xx+=samplingX;
+        ctx.lineTo((xx-xFrom)*Xunit , canvas.height-(func(xx)-yFrom)*Yunit);
+    }
+    if(xFrom<xTo){while(xx<xTo){pivoting()}}
+    else if(xFrom>xTo){while(xx>xTo){pivoting()}}
+	ctx.stroke();
+}
+
+function polarSystemGraph (func,xFrom,xTo,yFrom,yTo,color,thick,from,end) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+    
+    ctx.beginPath();
+    ctx.lineWidth = thick;
+    ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var x0=-xFrom*Xunit;
+    var y0=canvas.height+yFrom*Yunit;
+    var THETA=from;
+    var L=func(THETA);
+    ctx.moveTo(x0+L*Xunit*Math.cos(THETA),y0-L*Yunit*Math.sin(THETA));
+    function pivoting(){
+        L=func(THETA);
+        ctx.lineTo(x0+L*Xunit*Math.cos(THETA),y0-L*Yunit*Math.sin(THETA));
+    }
+    if(from<end){while(THETA<end){THETA+=0.039;pivoting();}}
+    else if(from>end){while(THETA>end){THETA-=0.039;pivoting();}}
+	ctx.stroke();
+}
+
+function xOFyGraph (func,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = thick;
+	ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingY=(yTo-yFrom)/400;//不管範圍,我只取樣四百個點
+    var yy = yFrom;
+    ctx.moveTo( (func(yy)-xFrom)*Xunit , canvas.height);
+    function pivoting(){
+        yy+=samplingY;
+        ctx.lineTo( (func(yy)-xFrom)*Xunit  ,  canvas.height-(yy-yFrom)*Yunit );
+    }
+    if(yFrom<yTo){while(yy<yTo){pivoting()}}
+    else if(yFrom>yTo){while(yy>yTo){pivoting()}}
+	ctx.stroke();
+}
+
+function ellipseGraph(x,y,a,b,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+    
+    ctx.beginPath();
+    ctx.lineWidth = thick;
+    ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var x0=-xFrom*Xunit;
+    var y0=canvas.height+yFrom*Yunit;
+    
+    a=a*Xunit;
+    b=b*Yunit;
+    x=(x-xFrom)*Xunit;
+    y=canvas.height+(yFrom-y)*Yunit;
+    
+    var k = .5522848;
+    var ox = a * k;
+    var oy = b * k;
+    
+    ctx.beginPath();
+    ctx.moveTo(x - a, y);
+    ctx.bezierCurveTo(x - a, y - oy, x - ox, y - b, x, y - b);
+    ctx.bezierCurveTo(x + ox, y - b, x + a, y - oy, x + a, y);
+    ctx.bezierCurveTo(x + a, y + oy, x + ox, y + b, x, y + b);
+    ctx.bezierCurveTo(x - ox, y + b, x - a, y + oy, x - a, y);
+    ctx.closePath();
+    ctx.stroke();
+/*
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+    
+    ctx.beginPath();
+    ctx.lineWidth = thick;
+    ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var x0=-xFrom*Xunit;
+    var y0=canvas.height+yFrom*Yunit;
+
+    function linking(from,end){
+        var samplingTHETA=(end-from)/100;
+        var THETA=from;
+        ctx.moveTo(x0+(ellipseA*Math.cos(THETA)+ellipseX)*Xunit,y0-(ellipseB*Math.sin(THETA)+ellipseY)*Yunit);
+        function pivoting(){
+            THETA+=samplingTHETA
+            ctx.lineTo(x0+(ellipseA*Math.cos(THETA)+ellipseX)*Xunit+ellipseX,y0-(ellipseB*Math.sin(THETA)+ellipseY)*Yunit);
+        }
+        while(THETA<end){pivoting();}
+    }
+
+
+    var from=new Array(),end=new Array();
+    if(xFrom <= ellipseX-ellipseA)end[3]=Math.PI;
+    else end[3]=Math.acos((xFrom-ellipseX)/ellipseA);
+    from[0]=-end[3];
+    end[0]=-Math.PI-Math.asin((yFrom-ellipseY)/ellipseB);
+    from[1]=Math.asin((yFrom-ellipseY)/ellipseB);
+    end[1]=-Math.acos((xTo-ellipseX)/ellipseA);
+    from[2]=-end[1];
+    end[2]=Math.asin((yTo-ellipseY)/ellipseB);
+    from[3]=Math.PI-end[2];
+    
+    function tryRecursively(i,j){
+        if(from[i]<end[j] && !isNaN(end[j]) ){
+            linking(from[i],end[j]);
+            if(j<3){j++;i=j;tryRecursively(i,j)}
+        }
+        else if(j<3){j++;tryRecursively(i,j)}
+    }
+    tryRecursively(0,0);
+//////////////////////////////////////////////////////
+    var from0,end0,from1,end1,from2,end2,from3,end3;
+
+    if(xFrom <= ellipseX-ellipseA)end3=Math.PI;
+    else end3=Math.acos((xFrom-ellipseX)/ellipseA);
+    from0=-end3;
+    end0=-Math.PI-Math.asin((yFrom-ellipseY)/ellipseB);
+    from1=Math.asin((yFrom-ellipseY)/ellipseB);
+    end1=-Math.acos((xTo-ellipseX)/ellipseA);
+    from2=-end1;
+    end2=Math.asin((yTo-ellipseY)/ellipseB);
+    from3=Math.PI-end2;
+
+    if(from0<end0 && !isNaN(end0) ){
+        linking(from0,end0);
+        if(from1<end1 && !isNaN(end1)){
+            linking(from1,end1);
+            if(from2<end2 && !isNaN(end2)){
+                linking(from2,end2);
+                if(from3<end3 && !isNaN(end3))linking(from3,end3);
+            }
+            else if(from2<end3 && !isNaN(end3))linking(from2,end3);
+        }
+        else if(from1<end2 && !isNaN(end2)){
+            linking(from1,end2);
+            if(from3<end3 && !isNaN(end3))linking(from3,end3);
+        }
+        else if(from1<end3 && !isNaN(end3))linking(from1,end3);
+    }
+    else if(from0<end1 && !isNaN(end1) ){
+        linking(from0,end1);
+        if(from2<end2 && !isNaN(end2)){
+            linking(from2,end2);
+            if(from3<end3 && !isNaN(end3))linking(from3,end3);
+        }
+        else if(from2<end3 && !isNaN(end3))linking(from2,end3);
+    }
+    else if(from0<end2 && !isNaN(end2) ){
+        linking(from0,end2);
+        if(from3<end3 && !isNaN(end3))linking(from3,end3);
+    }
+    else if(from0<end3 && !isNaN(end3) )linking(from0,end3);
+/////////////////////////////////////////////////////
+	ctx.stroke();
+*/
+}
+function ParabolaGraph(hyperbolaX,hyperbolaY,hyperbolaA,hyperbolaB,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = thick;
+	ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingY=(yTo-yFrom)/100;/*不管範圍,我只取樣1百個點*/
+    var yy = yFrom;
+    ctx.moveTo((  hyperbolaA*Math.sqrt(1+Math.pow((yy-hyperbolaY)/hyperbolaB,2))+hyperbolaX  -xFrom)*Xunit , canvas.height);
+    function pivoting(i){
+        yy+=samplingY;
+        ctx.lineTo( (i*hyperbolaA*Math.sqrt(1+Math.pow((yy-hyperbolaY)/hyperbolaB,2))+hyperbolaX-xFrom)*Xunit  ,  canvas.height-(yy-yFrom)*Yunit );
+    }
+    if(yFrom<yTo){while(yy<yTo){pivoting(1)}}
+    else if(yFrom>yTo){while(yy>yTo){pivoting(1)}}
+    
+    yy = yFrom;
+    ctx.moveTo((  -hyperbolaA*Math.sqrt(1+Math.pow((yy-hyperbolaY)/hyperbolaB,2))+hyperbolaX  -xFrom)*Xunit , canvas.height);
+    if(yFrom<yTo){while(yy<yTo){pivoting(-1)}}
+    else if(yFrom>yTo){while(yy>yTo){pivoting(-1)}}
+	ctx.stroke();
+}
+function vParabolaGraph(hyperbolaX,hyperbolaY,hyperbolaA,hyperbolaB,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.lineWidth = thick;
+	ctx.strokeStyle = color;
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingX=(xTo-xFrom)/100;/*不管範圍,我只取樣1百個點*/
+    var xx = xFrom;
+    ctx.moveTo(0 , canvas.height-(  hyperbolaB*Math.sqrt(1+Math.pow((xx-hyperbolaX)/hyperbolaA,2))+hyperbolaY  -yFrom)*Yunit);
+    function pivoting(i){
+        xx+=samplingX;
+        ctx.lineTo((xx-xFrom)*Xunit , canvas.height-( i*hyperbolaB*Math.sqrt(1+Math.pow((xx-hyperbolaX)/hyperbolaA,2))+hyperbolaY  -yFrom)*Yunit);
+    }
+    if(xFrom<xTo){while(xx<xTo){pivoting(1)}}
+    else if(xFrom>xTo){while(xx>xTo){pivoting(1)}}
+    
+    xx = xFrom;
+    ctx.moveTo(0 , canvas.height-(  -hyperbolaB*Math.sqrt(1+Math.pow((xx-hyperbolaX)/hyperbolaA,2))+hyperbolaY  -yFrom)*Yunit);
+    if(xFrom<xTo){while(xx<xTo){pivoting(-1)}}
+    else if(xFrom>xTo){while(xx>xTo){pivoting(-1)}}
+    
+	ctx.stroke();
+}
+
+function anyXYfuncGraph(func,xFrom,xTo,yFrom,yTo,color,thick) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.strokeStyle = color;
+
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var samplingX=(xTo-xFrom)/400;//不管範圍,我只取樣四百個點
+    var samplingY=(yTo-yFrom)/400;
+
+    var xx = xFrom;
+    var yy = yFrom;
+    
+    function pivoting(){
+        if( func(xx,yy) < 0.03){
+            ctx.moveTo((xx-xFrom)*Xunit-thick/2 , canvas.height-(yy-yFrom)*Yunit);
+            ctx.lineTo((xx-xFrom)*Xunit+thick/2 , canvas.height-(yy-yFrom)*Yunit);
+        }
+    }//polarSystemGraph＆yOFxGraph也可以用這個方法準確呈現不連續函數的圖形,不過在劇烈變化的圖形狀況下,會不平滑,而且畫的有一點慢
+
+    if(xFrom<xTo&&yFrom<yTo)while(xx<xTo){while(yy<yTo){pivoting();yy+=samplingY;}yy=yFrom;xx+=samplingX;}
+    else if(xFrom<xTo&&yFrom>yTo)while(xx<xTo){while(yy>yTo){pivoting();yy+=samplingY;}yy=yFrom;xx+=samplingX;}
+    else if(xFrom>xTo&&yFrom<yTo)while(xx>xTo){while(yy<yTo){pivoting();yy+=samplingY;}yy=yFrom;xx+=samplingX;}
+    else if(xFrom>xTo&&yFrom>yTo)while(xx>xTo){while(yy>yTo){pivoting();yy+=samplingY;}yy=yFrom;xx+=samplingX;}
+
+	ctx.stroke();
+}
+
+function XYaxesGraph(xFrom,xTo,yFrom,yTo) {
+    var canvas=document.getElementById("canvas");
+ 	var ctx=canvas.getContext("2d");
+    
+	ctx.beginPath();
+	ctx.lineWidth = 1;
+	ctx.strokeStyle = "rgb(128,128,128)";
+    ctx.fillStyle="rgb(128,128,128)";
+    ctx.font="10px";
+    
+    var Xunit = canvas.width/(xTo-xFrom);
+    var Yunit = canvas.height/(yTo-yFrom);
+    var XaxisDrawingPosition=canvas.height+yFrom*Yunit;
+    var YaxisDrawingPosition=-xFrom*Xunit;
+    var iDelta;
+    var jDelta;
+    
+    /*x axis part*/
+    if(XaxisDrawingPosition<=20){
+        iDelta=0;
+        jDelta=20;
+        ctx.fillText("0",YaxisDrawingPosition+iDelta,XaxisDrawingPosition+jDelta);
+        if(XaxisDrawingPosition<=0)XaxisDrawingPosition=0;
+        ctx.fillText("x",(xFrom<=xTo)?canvas.width-10:10,XaxisDrawingPosition+25);
+    }else{
+        iDelta=0;
+        jDelta=-5;
+        ctx.fillText("0",YaxisDrawingPosition+iDelta,XaxisDrawingPosition+jDelta);
+        if(XaxisDrawingPosition>=canvas.height)XaxisDrawingPosition=canvas.height;
+        ctx.fillText("x",(xFrom<=xTo)?canvas.width-10:10,XaxisDrawingPosition-15);
+    }
+	ctx.moveTo(0,XaxisDrawingPosition); ctx.lineTo(canvas.width , XaxisDrawingPosition);  // X axis
+	ctx.moveTo(((xFrom<=xTo)?canvas.width:0)-10 ,XaxisDrawingPosition-10); ctx.lineTo(((xFrom<=xTo)?canvas.width:0)+10 , XaxisDrawingPosition+10);  // X axis arrow
+	ctx.moveTo(((xFrom<=xTo)?canvas.width:0)-10 ,XaxisDrawingPosition+10); ctx.lineTo(((xFrom<=xTo)?canvas.width:0)+10 , XaxisDrawingPosition-10);  // X axis arrow
+    
+    var interval=Math.abs(xTo-xFrom)/18;
+    var power=Math.floor( Math.round(Math.log(interval)/Math.LN10*1e6)/1e6 );
+    var order=Math.pow(10,power);
+    var coef=interval/order;
+    //alert(coef+"×10^"+Math.log(order)/Math.LN10);
+    if(coef>7.5){coef=10}
+    else if(coef>2.9){coef=5}
+    else if(coef>1.3){coef=2}
+    else {coef=1}
+    interval=coef*order;
+    
+    var xx=Math.ceil(xFrom/interval)*interval;
+    
+    function pivotingX(){
+        xx=Math.round(xx*1e6)/1e6;
+        if(xx!=0){
+            var ii=(xx-xFrom)*Xunit;
+            ctx.moveTo(ii , XaxisDrawingPosition+5);
+            ctx.lineTo(ii , XaxisDrawingPosition-5);
+            if(power>3||power<-3){
+                var sci=String(xx.toExponential()).split(/[eE]/);
+                sci[0]=sci[0]+"×10";
+                sci[1]=sci[1].replace('+', '');
+                ctx.fillText(sci[0],ii+iDelta,XaxisDrawingPosition+jDelta);
+                ctx.fillText(sci[1],ii+iDelta+sci[0].length*5,XaxisDrawingPosition+jDelta-8);
+            }else ctx.fillText(xx,ii+iDelta,XaxisDrawingPosition+jDelta);
+        }
+    }
+    if(xFrom<xTo){while(xx<xTo){pivotingX();xx+=interval;}}
+    else if(xFrom>xTo){while(xx>xTo){pivotingX();xx-=interval;}}
+    
+    
+    /*y axis part*/
+    var if75width=(YaxisDrawingPosition>=canvas.width*0.75)?1:0;
+    if(if75width){
+        iDelta=-10;
+        jDelta=10;
+        if(YaxisDrawingPosition>=canvas.width){
+            ctx.fillText("0",YaxisDrawingPosition+iDelta,XaxisDrawingPosition+jDelta);
+            YaxisDrawingPosition=canvas.width;
+        }
+        ctx.fillText("y",YaxisDrawingPosition-15 ,(yFrom<=yTo)?10:canvas.height-10);
+    }
+    else {
+        if(YaxisDrawingPosition<=0)YaxisDrawingPosition=0;
+        ctx.fillText("y",YaxisDrawingPosition+13 ,(yFrom<=yTo)?10:canvas.height-10);
+        iDelta=5;
+        jDelta=-1;
+    }
+    
+    ctx.moveTo(YaxisDrawingPosition,0); ctx.lineTo(YaxisDrawingPosition,canvas.height);  // Y axis
+    ctx.moveTo(YaxisDrawingPosition-10 ,((yFrom<=yTo)?0:canvas.height)-10); ctx.lineTo(YaxisDrawingPosition+10 , ((yFrom<=yTo)?0:canvas.height)+10);  // Y axis arrow
+	ctx.moveTo(YaxisDrawingPosition-10 ,((yFrom<=yTo)?0:canvas.height)+10); ctx.lineTo(YaxisDrawingPosition+10 , ((yFrom<=yTo)?0:canvas.height)-10);  // Y axis arrow
+    
+    interval=Math.abs(yTo-yFrom)/16;
+    power=Math.floor( Math.round(Math.log(interval)/Math.LN10*1e6)/1e6 );
+    order=Math.pow(10,power);
+    coef=interval/order;
+    //alert(coef+"×10^"+Math.log(order)/Math.LN10);
+    if(coef>7.5){coef=10}
+    else if(coef>2.9){coef=5}
+    else if(coef>1.3){coef=2}
+    else {coef=1}
+    interval=coef*order;
+    
+    var yy=Math.ceil(yFrom/interval)*interval;
+    
+    function pivotingY(){
+        yy=Math.round(yy*1e6)/1e6;
+        //alert(yy.toString().length);
+        if(yy!=0){
+            var jj=canvas.height-(yy-yFrom)*Yunit;
+            ctx.moveTo(YaxisDrawingPosition-5 , jj);
+            ctx.lineTo(YaxisDrawingPosition+5 , jj);
+            if(power>3||power<-3){
+                var sci=String(yy.toExponential()).split(/[eE]/);
+                sci[0]=sci[0]+"×10";
+                sci[1]=sci[1].replace('+', '');
+                ctx.fillText(sci[0],YaxisDrawingPosition+iDelta-((if75width)?(sci[0]+sci[1]).length*5:0),jj+jDelta);
+                ctx.fillText(sci[1],YaxisDrawingPosition+iDelta-((if75width)?sci[1].length*5:sci[0].length*(-5)),jj+jDelta-8);
+            }else ctx.fillText(yy,YaxisDrawingPosition+iDelta-((if75width)?yy.toString().length*5:0),jj+jDelta);
+        }
+    }
+    if(yFrom<yTo){while(yy<yTo){pivotingY();yy+=interval;}}
+    else if(yFrom>yTo){while(yy>yTo){pivotingY();yy-=interval;}}
+    
+    
+	ctx.stroke();
+}
+
+
+/////////////////////plottingEND////////////////////////////////////////////////////////
+/////////////////////NewtonSolverSTART//////////////////////////////////////////////////
+function NewtonSolver() {
+	var str=document.getElementById('NewtonEQ').value;
+    var sol=document.getElementById('NewtonStart').value;
+    if(sol==0){sol='0'}
+    if(!str.match(/\=/)||str.match(/\=/g).length!=1){alert(alert1forFunc1);return 漢字讓你故障};
+    if(!str.match(/x/)){alert(alert1forFunc2);return 漢字讓你故障};
+    var f = '('+str.replace(/\=/,')-(')+')';
+    myEval('x=0\n'+f,'ReturnFinalReal');//偷吃步check是否有位定義變數
+    
+    var tolerance=0.0001;
+    var code='\nf(x)='+f+'\ng(x)=(f(x+0.000001)-f(x))/0.000001\nh(x)=x-f(x)/g(x)\n';
+    var aSolution=sol,counter=0,checkCode,check;
+    do{
+        checkCode='s='+noExponents(aSolution)+'\ncheck(x)='+'abs(('+str.replace(/\=/,')-(')+'))/(abs('+str.replace(/\=/,')+abs(')+')+0.000074)'+'\ncheck(s)';
+        check=Math.abs(myEval(checkCode,'ReturnFinalReal'));
+        
+        if(check<=tolerance){break;}
+
+        counter++;
+        aSolution=myEval(code+'h('+noExponents(aSolution)+')','ReturnFinalReal');
+    }while(counter<=100 && !isNaN(aSolution)  );
+//alert('\ncheck: '+check+'\naSolution: '+aSolution+'\ncounter: '+counter);
+    var prefix,suffix;
+    for(var i= 0; i < str.length; i++){
+        if(str.charAt(i) === '='){
+            prefix=str.substring(0,i);
+            suffix=str.substring(i+1);
+        }
+    }
+    
+    if(check<=tolerance){
+        document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += NewtonPost1+sol+NewtonPost2+myScientificNotation(aSolution)+NewtonPost3+MathMLthis(prefix,'all')+' = '+MathMLthis(suffix,'all')+'<br><br>';
+    }else{
+        document.getElementById('resultsDisplayOfOthersFunctionality').innerHTML += NewtonPost1+sol+NewtonPost4+MathMLthis(prefix,'all')+' = '+MathMLthis(suffix,'all')+NewtonPost5;
+    }
+    document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+}
+
+/////////////////////NewtonSolverEND////////////////////////////////////////////////////
+/*
+function enterKey(e){
+	var key=(document.all)?event.keyCode:e.which;
+	if(key==13){
+		execute();
+		return false;//防止Firefox及IE誤觸正在focus的地方或enter的預設行為
+	}
+}
+document.onkeypress = enterKey;
+*/
+
+function chooseThisToWrite(id){
+	AreaDecided=document.getElementById(id);
+}
+function chooseThisToMove(id){
+	sharedID=id;
+}
+
+
+
+function toggleMenu( id ){
+	var o=document.getElementById( id );
+	o.style.display=(o.style.display=='none') ? '' : 'none';
+	AreaDecided=document.getElementById('draft');//讓打字區自動返回draft
+}
+function hideALLbutToggleThis(ID){
+	var o=document.getElementsByClassName("corner5pxHide");
+	for( var i=0; i < o.length; i++){
+		if(o[i].id==ID){
+			toggleMenu(ID);
+		}
+		else{
+			o[i].style.display='none';
+			AreaDecided=document.getElementById('draft');
+		}
+	}
+}
+function showSpecificxxx(){
+    function hideThis(CLASS,orID){
+        if(!orID){
+            var o=document.getElementsByClassName(CLASS);
+            for( var i=0; i<o.length; i++){o[i].style.display='none';}
+        }else{
+            document.getElementById(CLASS).style.display='none';
+        }
+    }
+    function showThis(CLASS,orID){
+        if(!orID){
+            var o=document.getElementsByClassName(CLASS);
+            for( var i=0; i<o.length; i++){o[i].style.display='';}
+        }else{
+            document.getElementById(CLASS).style.display='';
+        }
+    }
+    if(document.getElementById('plotFuncType').value =="y = f(x) = "){
+        document.getElementById('plotFUNCkeyindisplay1237').style.left=67+'px';
+        showThis("plotFUNCkeyindisplay1237",1);
+        hideThis("plotFUNCkeyindisplay2");
+        hideThis("plotFUNCkeyindisplay4");
+        hideThis("plotFUNCkeyindisplay5");
+        hideThis("plotFUNCkeyindisplay6");
+        hideThis("plotFUNCkeyindisplay7");
+    }
+    else if(document.getElementById('plotFuncType').value =='r = r(θ) = '){
+        document.getElementById('plotFUNCkeyindisplay1237').style.left=67+'px';
+        showThis("plotFUNCkeyindisplay1237",1);
+        showThis("plotFUNCkeyindisplay2");
+        hideThis("plotFUNCkeyindisplay4");
+        hideThis("plotFUNCkeyindisplay5");
+        hideThis("plotFUNCkeyindisplay6");
+        hideThis("plotFUNCkeyindisplay7");
+    }
+    else if(document.getElementById('plotFuncType').value =="x = g(y) = "){
+        document.getElementById('plotFUNCkeyindisplay1237').style.left=67+'px';
+        showThis("plotFUNCkeyindisplay1237",1);
+        hideThis("plotFUNCkeyindisplay2");
+        hideThis("plotFUNCkeyindisplay4");
+        hideThis("plotFUNCkeyindisplay5");
+        hideThis("plotFUNCkeyindisplay6");
+        hideThis("plotFUNCkeyindisplay7");
+    }
+    else if(document.getElementById('plotFuncType').value =="ㅇ:"){
+        document.getElementById('plotFUNCkeyindisplay1237').style.left=67+'px';
+        hideThis("plotFUNCkeyindisplay1237",1);
+        hideThis("plotFUNCkeyindisplay2");
+        showThis("plotFUNCkeyindisplay4");
+        hideThis("plotFUNCkeyindisplay5");
+        hideThis("plotFUNCkeyindisplay6");
+        hideThis("plotFUNCkeyindisplay7");
+    }
+    else if(document.getElementById('plotFuncType').value ==")(:"){
+        document.getElementById('plotFUNCkeyindisplay1237').style.left=67+'px';
+        hideThis("plotFUNCkeyindisplay1237",1);
+        hideThis("plotFUNCkeyindisplay2");
+        hideThis("plotFUNCkeyindisplay4");
+        showThis("plotFUNCkeyindisplay5");
+        hideThis("plotFUNCkeyindisplay6");
+        hideThis("plotFUNCkeyindisplay7");
+    }
+    else if(document.getElementById('plotFuncType').value =="ꇤ:"){
+        document.getElementById('plotFUNCkeyindisplay1237').style.left=67+'px';
+        hideThis("plotFUNCkeyindisplay1237",1);
+        hideThis("plotFUNCkeyindisplay2");
+        hideThis("plotFUNCkeyindisplay4");
+        hideThis("plotFUNCkeyindisplay5");
+        showThis("plotFUNCkeyindisplay6");
+        hideThis("plotFUNCkeyindisplay7");
+    }
+    else if(document.getElementById('plotFuncType').value =="any equation of x and y :"){
+        document.getElementById("plotFUNCkeyindisplay1237").style.left=107+'px';
+        showThis("plotFUNCkeyindisplay1237",1);
+        hideThis("plotFUNCkeyindisplay2");
+        hideThis("plotFUNCkeyindisplay4");
+        hideThis("plotFUNCkeyindisplay5");
+        hideThis("plotFUNCkeyindisplay6");
+        showThis("plotFUNCkeyindisplay7");
+    }
+    document.getElementById('plotFUNCcolor').style.backgroundColor=document.getElementById('plotFUNCcolor').value;
+}
+</script>
+</head>
+
+<body style="background-color:#FFFFFF;" onload="checkonload();">
+<noscript><p style="color: red;font-size:x-large">You must enable Javascript in you browser to use this website correctly!</p></noscript>
+
+
+<canvas id="canvas" width="700" height="560"  style="top:0px; left:540px; position:absolute;">No canvas support!</canvas>
+
+<div style="position:absolute;top:0px;left:5px;" id="draftAndResult" onclick="chooseThisToMove('draftAndResult');">
+	<div id="result" style="resize:both;overflow:auto;font-size:15px;line-height:16px;height:150px;width:490px;padding:0px 10px;"></div>
+	<textarea id="draft" class="textareaStyle2" style="font-size:15px; line-height:16px; padding:0px 10px; height: 100px; width: 490px; background-color:rgba(255, 240, 70,1)" onclick="chooseThisToWrite('draft');"></textarea>
+</div>
+
+<!--按鍵基礎框架-//////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<div style="position:absolute;left:260px;top:260px" id='mainKeyBoard' onclick="chooseThisToMove('mainKeyBoard');" class="doNotSelect">
+<div style="display:table;border-spacing:5px;position:relative;left:5px;"><!--寬30*7+5*7=245-->
+	<div style="display:table-row">
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('(')" title="左カッコ">(</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing(')')" title="右カッコ">)</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('log(')" title="対数関数 log(x)">log</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('ln(')" title="対数関数 ln(x)">ln</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('^')" title="累乗（べき乗） power(x,y)">^</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('π')" title="【定数】円周率">π</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('e')" title="【定数】自然対数の底（ネピア数）">e</div>
+	</div>
+	<div style="display:table-row">
+		<div class="smallbuttonStyle" style="display:table-cell;font-size:14px;width:30px;height:25px;" onclick="typing(',')" title="コンマ">,</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('|')" title="絶対値 |x|">|x|</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('!')" title="階乗 fact(x)">x!</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('P')" title="順列の数 nPx">nPx</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('C')" title="組み合わせの数 nCx">nCx</div>
+		<div class="smallbuttonStyle" style="display:table-cell;font-size:14px;width:30px;height:25px;" onclick="typing('√(')" title="平方根 sqrt(x)">√</div>
+		<div class="smallbuttonStyle" style="display:table-cell;font-size:15px;font-weight:normal;width:30px;height:25px;" onclick="typing('∛(')" title="立方根 cbrt(x)">∛</div>
+	</div>
+	<div style="display:table-row">
+		<div class="smallbuttonStyle" id="arc" style="display:table-cell;width:30px;height:25px;" onclick="arcmode()" title="逆三角関数モード">arc-</div>
+		<div class="smallbuttonStyle" id="hyp" style="display:table-cell;width:30px;height:25px;" onclick="hypmode()" title="双曲線関数モード">hyp-</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="trifunc('sin')" title="sin">sin</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="trifunc('cos')" title="cos">cos</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="trifunc('tan')" title="tan">tan</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="" title=""></div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('°')" title="type degree value mark">°</div>
+	</div>
+	<div style="display:table-row">
+		<div class="smallbuttonStyle" id="plotPanelButtonID" style="display:table-cell;width:30px;height:25px;" onclick="toggleMenu('plotPanel');openPlotPanel();showSpecificxxx();" title="Open plotting Panel">plot</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('x')" title="Type variable 'x'">x</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('θ')" title="Type variable 'θ'">θ</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('y')" title="Type variable 'y'">y</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('=')" title="Type Equals sign '='">=</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="" title=""></div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="" title=""></div>
+	</div>
+	<div style="display:table-row">
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('%')" title="百分率表記">%</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="" title=""></div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('·')" title="same as '×'">•</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="" title=""></div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('*')" title="複數共軛記號">*</div>
+		<div class="smallbuttonStyle" style="display:table-cell;width:30px;height:25px;" onclick="typing('i')" title="complex unit">i</div>
+		<div class="smallbuttonStyle" id="othersPanelButtonID" style="display:table-cell;font-size:15px;width:30px;height:25px;" onclick="openOthersPanel();hideALLbutToggleThis('others')" title="Show other references">...</div>
+	</div>
+</div>
+
+<div style="display:table;border-spacing:10px;position:relative;top:-5px;"><!--寬40*5+10*5-5=245-->
+	<div style="display:table-row">
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('7')">7</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('8')">8</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('9')">9</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('+')" title="加算演算子，正の符号">+</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('-')" title="減算演算子，負の符号">-</div>
+	</div>
+	<div style="display:table-row">
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('4')">4</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('5')">5</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('6')">6</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('×')" title="乗算演算子">×</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('/')" title="除算演算子">/</div>
+	</div>
+	<div style="display:table-row">
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('1')">1</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('2')">2</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('3')">3</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="reviseOne();" title="最後尾の一文字を消去">←</div>
+		<div class="bigbuttonStyle" style="display:table-cell;font-size:9px;font-weight:normal;width:40px;height:30px;" onclick="typing('\n')" title="換行">下一算式</div>
+	</div>
+	<div style="display:table-row">
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('.')" title="小数点">·</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;" onclick="typing('0')">0</div>
+		<div class="bigbuttonStyle" style="display:table-cell;width:40px;height:30px;font-size:13px" onclick="cleareq();" title="表示内容を消去">Clear</div>
+	</div>
+</div>
+<button class="originalbuttonStyle" style="position:relative;top:-45px;left:160px;font-size:18px;font-style:italic;;width:90px;height:30px;" onclick="execute();" title="計算を実行">calculate</button>
+
+
+
+
+<div style="top:95px;left:-250px;position:absolute;display:none;width:250px;height:220px;border-radius: 5px;background-color:#F0F0F0;" id='plotPanel'>
+    <select id="plotFuncType" style="left:0px;top:16px;position:absolute" onchange="showSpecificxxx();">
+        <option value ="y = f(x) = ">y = f(x) =</option>
+        <option value ="r = r(θ) = ">r = r(θ) =</option>
+        <option value ="x = g(y) = ">x = g(y) =</option>
+        <option value ='ㅇ:'> ㅇ :</option>
+        <option value =')(:'> )( :</option>
+        <option value ='ꇤ:'> ꇤ :</option>
+        <option value ="any equation of x and y :">any f(x,y)=g(x,y) :</option>
+    </select>
+    
+    <p style="left:67px;top:0px;position:absolute;font-size:15px" id="plotFUNCkeyindisplay1237"><textarea placeholder="please type here" id="plotFUNCkeyin" class="textareaStyle2" style="background-color:#F0F0F0;width:140px;font-size:15px; line-height:16px; height: 18px; "  onclick='chooseThisToWrite("plotFUNCkeyin");'></textarea></p>
+    <div style="left:10px;top:35px;position:absolute;font-size:15px" class="plotFUNCkeyindisplay4"><math><mfrac><mn>( x -<input id="ellipseX" class="textareaStyle2" placeholder="0" style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("ellipseX");'></input> )<sup>2</sup></mn><mn>(<input id="ellipseA" class="textareaStyle2"  style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("ellipseA");'></input>)<sup>2</sup></mn></mfrac></math> + <math><mfrac><mn>( y -<input id="ellipseY" class="textareaStyle2" placeholder="0" style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("ellipseY");'></input> )<sup>2</sup></mn><mn>(<input id="ellipseB" class="textareaStyle2"  style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("ellipseB");'></input>)<sup>2</sup></mn></mfrac></math>=1</div>
+    <div style="left:10px;top:35px;position:absolute;font-size:15px" class="plotFUNCkeyindisplay5"><math><mfrac><mn>( x -<input id="hyperbolaX" class="textareaStyle2" placeholder="0" style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("hyperbolaX");'></input> )<sup>2</sup></mn><mn>(<input id="hyperbolaA" class="textareaStyle2"  style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("hyperbolaA");'></input>)<sup>2</sup></mn></mfrac></math> - <math><mfrac><mn>( y -<input id="hyperbolaY" class="textareaStyle2" placeholder="0" style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("hyperbolaY");'></input> )<sup>2</sup></mn><mn>(<input id="hyperbolaB" class="textareaStyle2"  style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("hyperbolaB");'></input>)<sup>2</sup></mn></mfrac></math>=1</div>
+    <div style="left:10px;top:35px;position:absolute;font-size:15px" class="plotFUNCkeyindisplay6">- <math><mfrac><mn>( x -<input id="vhyperbolaX" class="textareaStyle2" placeholder="0" style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("vhyperbolaX");'></input> )<sup>2</sup></mn><mn>(<input id="vhyperbolaA" class="textareaStyle2"  style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("vhyperbolaA");'></input>)<sup>2</sup></mn></mfrac></math> + <math><mfrac><mn>( y -<input id="vhyperbolaY" class="textareaStyle2" placeholder="0" style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("vhyperbolaY");'></input> )<sup>2</sup></mn><mn>(<input id="vhyperbolaB" class="textareaStyle2"  style="background-color:#F0F0F0;width:30px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("vhyperbolaB");'></input>)<sup>2</sup></mn></mfrac></math>=1</div>
+    
+    <select id="plotFUNCcolor" style="left:10px;top:80px;width:70px;position:absolute;background-color:#FF0000" onchange="document.getElementById('plotFUNCcolor').style.backgroundColor=document.getElementById('plotFUNCcolor').value;">
+        <option value ="#FF0000" style="background-color:#FF0000"></option>
+        <option value ="#0000FF" style="background-color:#0000FF"></option>
+        <option value="#008000" style="background-color:#008000"></option>
+        <option value="#800080" style="background-color:#800080"></option>
+        <option value="#FFA500" style="background-color:#FFA500"></option>
+        <option value="#0000A0" style="background-color:#0000A0"></option>
+        <option value="#808000" style="background-color:#808000"></option>
+        <option value="#A52A2A" style="background-color:#A52A2A"></option>
+        <option value="#FF00FF" style="background-color:#FF00FF"></option>
+        <option value="#808080" style="background-color:#808080"></option>
+    </select>
+	
+    <p style="left:10px;top:90px;position:absolute;font-size:15px;"><i>x= </i><textarea id="plotFUNCkeyinFromX" class="textareaStyle2"  style="background-color:#F0F0F0;width:80px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("plotFUNCkeyinFromX");'>-10</textarea> 〜 <textarea id="plotFUNCkeyinToX" class="textareaStyle2"  style="background-color:#F0F0F0;width:95px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("plotFUNCkeyinToX");'>10</textarea><br><i>y= </i><textarea id="plotFUNCkeyinFromY" class="textareaStyle2"  style="background-color:#F0F0F0;width:80px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("plotFUNCkeyinFromY");'>-10</textarea> 〜 <textarea id="plotFUNCkeyinToY" class="textareaStyle2"  style="background-color:#F0F0F0;width:95px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("plotFUNCkeyinToY");'>10</textarea></p>
+    <p style="left:10px;top:140px;position:absolute;font-size:15px" class="plotFUNCkeyindisplay2"><i>θ= </i><textarea id="plotFUNCkeyinFrom" class="textareaStyle2"  style="background-color:#F0F0F0;width:40px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("plotFUNCkeyinFrom");'>0</textarea><i> 〜 </i><textarea id="plotFUNCkeyinTo" class="textareaStyle2"  style="background-color:#F0F0F0;width:45px;font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("plotFUNCkeyinTo");'>40×π</textarea>(radian)</p>
+	<p style="left:10px;top:140px;position:absolute;font-size:13px" class="plotFUNCkeyindisplay7"><span style="font-size:9px">Input Examples:(x^2+y^2-1)^3=x^2·y^3<br>注意: y=f(x)用此方法繪圖會較浪費系統效能,圖也較粗糙</span></p>
+
+    <button class="originalbuttonStyle" style="top:190px;left:155px;position:absolute;font-size:15px;width:70px;height:25px;" onclick="draw();" title="">plot!</button>
+</div>
+
+<div style="top:15px;left:260px;position:absolute;display:none;width:260px;height:300px" id='others' class="corner5pxHide">
+	<button class="originalbuttonStyle" style="top:10px;left:10px;position:absolute;width:230px;height:40px;font-size:14px;"  onclick="toggleMenu('solvexx');toggleMenu('resultsPanelOfOthersFunctionality');loadSavedFunctionality2();">Solve x of ax<sup>4</sup>+bx<sup>3</sup>+cx<sup>2</sup>+dx+e=0</button>
+	<button class="originalbuttonStyle" style="top:60px;left:10px;position:absolute;width:230px;height:30px;font-size:14px;"  onclick="toggleMenu('Newton');toggleMenu('resultsPanelOfOthersFunctionality');loadSavedFunctionality2();">Newton Method</button>
+</div>
+
+<div style="top:15px;left:260px;position:absolute;display:none;width:250px;height:300px" id='solvexx' class="corner5pxHide">
+	<button class="originalbuttonStyle" style="top:5px;left:15px;position:absolute;font-size:25px;width:50px;height:25px;" onclick="toggleMenu('solvexx');toggleMenu('resultsPanelOfOthersFunctionality');" title="">↩</button>
+	<p style="left:20px;top:15px;position:absolute">Solve x of ax<sup>4</sup>+bx<sup>3</sup>+cx<sup>2</sup>+dx+e=0</p>
+	<p style="left:27px;top:75px;position:absolute"><i>a = </i><textarea placeholder="please type here" id="aValueQE" class="textareaStyle2"  style="background-color:#F0F0F0;width:170px; font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("aValueQE");'></textarea></p>
+	<p style="left:27px;top:110px;position:absolute"><i>b = </i><textarea placeholder="please type here" id="bValueQE" class="textareaStyle2" style="background-color:#F0F0F0;width:170px; font-size:15px; line-height:16px; height: 18px; " onclick='chooseThisToWrite("bValueQE");'></textarea></p>
+	<p style="left:27px;top:145px;position:absolute"><i>c = </i><textarea placeholder="please type here" id="cValueQE" class="textareaStyle2" style="background-color:#F0F0F0;width:170px;font-size:15px; line-height:16px; height: 18px;" onclick='chooseThisToWrite("cValueQE");'></textarea></p>
+	<p style="left:27px;top:180px;position:absolute"><i>d = </i><textarea placeholder="please type here" id="dValueQE" class="textareaStyle2" style="background-color:#F0F0F0;width:170px;font-size:15px; line-height:16px;  height: 18px;" onclick='chooseThisToWrite("dValueQE");'></textarea></p>
+	<p style="left:27px;top:210px;position:absolute"><i>e = </i><textarea placeholder="please type here" id="eValueQE" class="textareaStyle2" style="background-color:#F0F0F0;width:170px;font-size:15px; line-height:16px;  height: 18px;" onclick='chooseThisToWrite("dValueQE");'></textarea></p>
+    <button class="originalbuttonStyle" style="top:265px;left:155px;position:absolute;font-size:15px;width:70px;height:25px;" onclick="QuarticEqSolver();setTimeout('saveFunctionality2()', 400 );" title="">solve!</button>
+</div>
+
+<div style="top:15px;left:260px;position:absolute;display:none;width:250px;height:300px" id='Newton' class="corner5pxHide">
+    <button class="originalbuttonStyle" style="top:5px;left:15px;position:absolute;font-size:25px;width:50px;height:25px;" onclick="toggleMenu('Newton');toggleMenu('resultsPanelOfOthersFunctionality');" title="">↩</button>
+    <p style="left:20px;top:15px;position:absolute;font-size:13px;">Use Newton's Method to find a solution to ANY f(x)=g(x)</p>
+    <p style="left:27px;top:65px;position:absolute"><i>equation : </i><textarea placeholder="please type here" id="NewtonEQ" class="textareaStyle2"  style="background-color:#F0F0F0;width:170px; font-size:15px; line-height:16px;  height: 18px; "  onclick='chooseThisToWrite("NewtonEQ");'></textarea></p>
+	<p style="left:27px;top:120px;position:absolute"><i>start at x = </i><textarea placeholder="please type here" id="NewtonStart" class="textareaStyle2" style="background-color:#F0F0F0;width:120px; font-size:15px; line-height:16px; height: 18px; " onclick='chooseThisToWrite("NewtonStart");'></textarea></p>
+    <button class="originalbuttonStyle" style="top:265px;left:155px;position:absolute;font-size:15px;width:70px;height:25px;" onclick="NewtonSolver();setTimeout('saveFunctionality2()', 400 );" title="">solve!</button>
+</div>
+
+<div style="top:-190px;left:260px;position:absolute;display:none;width:360px;height:200px;border-radius: 5px;background-color:#F0F0F0;" id='resultsPanelOfOthersFunctionality' class="corner5pxHide">
+    <div id="resultsDisplayOfOthersFunctionality" style="resize:both;overflow:auto;font-size:15px;line-height:16px;height:190px;width:330px;padding:3px 10px;"></div>
+    <button class="originalbuttonStyle" style="top:5px;left:320px;position:absolute;font-size:11px;width:31px;height:25px;" onclick="clearAllMemory()" title="記録を消す">clear</button>
+</div>
+</div>
+<!--END 按鍵基礎框架-////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+<script>
+//----------------------------------------------------draggable!
+	var xr,yr;
+	var sharedID='mainKeyBoard';
+	var isTouchEnabled = window.Touch || false;
+
+	function followMe(evt) {
+		evt.preventDefault();//避免觸控的瀏覽器同時上下動來動去
+		document.getElementById(sharedID).style.left = evt.pageX-xr+ 'px';
+		document.getElementById(sharedID).style.top = evt.pageY-yr+ 'px';
+	};
+	function fingerMoveStart(ev){
+		xr=ev.pageX-document.getElementById(sharedID).offsetLeft;
+		yr=ev.pageY-document.getElementById(sharedID).offsetTop;
+		document.addEventListener(isTouchEnabled?'touchmove':'mousemove',followMe,false);
+	};
+	function fingerMoveEnd(){
+		document.removeEventListener(isTouchEnabled?'touchmove':'mousemove',followMe,false);
+	};
+
+	document.getElementById(sharedID).onmousedown=document.getElementById(sharedID).ontouchstart=fingerMoveStart;
+	document.getElementById(sharedID).onmouseup=document.getElementById(sharedID).ontouchend=fingerMoveEnd;
+
+//------------------------------------------------------savable!!
+	function saveIfchange(){
+		localStorage.setItem("draftkey", document.getElementById("draft").value);
+		localStorage.setItem("resultkey", document.getElementById("result").innerHTML);
+	};
+	function delaySaving(){
+		setTimeout("saveIfchange()", 400 );
+	}
+	document.onmouseup=document.onkeyup=document.ontouchend= delaySaving;//避免在編輯之前存檔
+//	window.onload = function() {
+		document.getElementById("draft").value=localStorage.getItem("draftkey");
+		document.getElementById("result").innerHTML=localStorage.getItem("resultkey");
+        function loadToEnd(){
+            document.getElementById("draft").scrollTop=document.getElementById("draft").scrollHeight;
+            document.getElementById('draft').selectionStart=document.getElementById('draft').value.length;
+            document.getElementById("result").scrollTop=document.getElementById("result").scrollHeight;
+        }
+        setTimeout("loadToEnd()",400);
+
+//	};
+
+    function saveFunctionality2(){
+        localStorage.setItem("result2key", document.getElementById("resultsDisplayOfOthersFunctionality").innerHTML);
+    }
+    function loadSavedFunctionality2(){
+        document.getElementById("resultsDisplayOfOthersFunctionality").innerHTML=localStorage.getItem("result2key");
+        for(var i=0;i<400;i++){}
+        document.getElementById("resultsDisplayOfOthersFunctionality").scrollTop=document.getElementById("resultsDisplayOfOthersFunctionality").scrollHeight;
+    }
+    function clearAllMemory(){
+        localStorage.setItem("result2key", '');
+        document.getElementById("resultsDisplayOfOthersFunctionality").innerHTML=localStorage.getItem("result2key");
+    }
+//------------------------------------------------------
+</script>
+
+
+<a href="https://itunes.apple.com/us/app/programmable-scientific-calculator/id790774890?l=ja&mt=8" target="_blank">
+	<canvas id="canvas_availableOnAppStore" width="200" height="63" style="position:absolute;left:1040px;top:570px">
+		Your browser does not support the HTML5 canvas tag.</canvas>
+</a>
+	<script>
+		var c=document.getElementById("canvas_availableOnAppStore");
+		var ctx=c.getContext("2d");
+		ctx.scale(0.75,0.75);
+		function roundedRectangle(recX0,recY0,recW,recH,r,fillColor){//
+			ctx.beginPath();
+			ctx.arc(recX0+r,recY0+r,r,Math.PI,3*Math.PI/2);ctx.lineTo(recX0+recW-r,recY0);//上邊
+			ctx.arc(recX0+recW-r,recY0+r,r,-Math.PI/2,0);ctx.lineTo(recX0+recW,recY0+recH-r);//右邊
+			ctx.arc(recX0+recW-r,recY0+recH-r,r,0,Math.PI/2);ctx.lineTo(recX0+r,recY0+recH);//下邊
+			ctx.arc(recX0+r,recY0+recH-r,r,Math.PI/2,Math.PI);ctx.lineTo(recX0,recY0+r);//左邊
+			//ctx.strokeStyle=fillColor;
+			//ctx.stroke();
+			ctx.fillStyle=fillColor;
+			ctx.fill();
+			ctx.closePath();
+		}
+
+		roundedRectangle(0,0,200,63,12,"black");
+		roundedRectangle(17,12,24,40,4,"white");
+		roundedRectangle(18.5,19,21,26,1,"black");
+
+		ctx.fillStyle = 'white';
+		ctx.font="18px Arial";
+		ctx.fillText("Available on the",55,24);
+		ctx.font="29px Arial";
+		ctx.fillText("App Store",55,53);
+
+		ctx.beginPath();
+		ctx.fillStyle = 'black';
+		ctx.arc(29, 48.7, 2.5, 0, 2 * Math.PI, true);
+		ctx.fill();
+		ctx.moveTo(26.5,16);
+		ctx.lineTo(31.5,16);
+		ctx.stroke();
+		ctx.closePath();
+
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="display:none;position:absolute;top:600px;background-color:#FFFFFF">
+	<small>※ 表示される桁数は10桁以上ありますが，計算精度を考慮して有効桁数は8桁程度とお考えください．</small>
+	<br><br>【演算子】
+	<br>: 論理積
+	<br>| : 論理和
+	<br/>^ : 排他的論理和
+	<br><br>【定数】
+	<br>euler() : オイラー定数
+	<br>goldenratio() : 黄金比
+	<br><br>【関数】
+	<br>・三角関数・双曲線関数
+	<br>sin(r) : 正弦 （rはラジアン）
+	<br>cos(r) : 余弦 （rはラジアン）
+	<br>tan(r) : 正接 （rはラジアン）
+	<br>asin(x) : 正弦の逆関数（arc sine）
+	<br>acos(x) : 余弦の逆関数（arc cosine）
+	<br>atan(x) : 正接の逆関数（arc tangent）
+	<br>sinh(r) : 双曲線正弦（hyperbolic sine）
+	<br>cosh(r) : 双曲線余弦（hyperbolic cosine）
+	<br>tanh(r) : 双曲線正接（hyperbolic tangent）
+	<br>asinh(x) : 双曲線正弦の逆関数（hyperbolic arc sine）
+	<br>acosh(x) : 双曲線余弦の逆関数（hyperbolic arc cosine）
+	<br>atanh(x) : 双曲線正接の逆関数（hyperbolic arc tangent）
+	<br><br>・対数関数・指数関数
+	<br>inv(x) : x の逆数 1/x 
+	<br>logarithm(x,a) : 任意の数aを底とする対数
+	<br>exp(x) : e<sup>x</sup>, 自然対数の底(ネピアの数) e の x 乗
+	<br>pow(x,y) : x<sup>y</sup>, x の y 乗
+	<br><br>・階乗・順列・組み合わせ
+	<br>fact(x) : 階乗 x!（factorial） 但し x は非負の整数
+	<br>P(n,x) : 順列の個数（permutation）
+	<br>C(n,x) : 組み合わせの個数（combination）
+	<br>stirling1(n,x) : 第1種スターリング数（first stirling numbers）
+	<br>stirling2(n,x) : 第2種スターリング数（second stirling numbers）
+	<br><br>・統計
+	<br>min(a,b,c,...) : 最小値（minimum value）
+	<br>max(a,b,c,...) : 最大値（maximum value）
+	<br>mean(a,b,c,...) : 相加平均（算術平均:arithmetic mean）
+	<br>gmean(a,b,c,...) : 相乗平均（幾何平均:geometric mean） 但し a,b,c,... は正の整数
+	<br>hmean(a,b,c,...) : 調和平均（harmonic mean） 但し a,b,c,... は正の整数
+	<br>mode(a,b,c,...) : 最頻値（mode）
+	<br>median(a,b,c,...) : 中央値（中位数:median）
+	<br>quart1(a,b,c,...) : 第１四分位（四分位:1st quartile）
+	<br>quart3(a,b,c,...) : 第３四分位（四分位:3rd quartile）
+	<br>rss(a,b,c,...) : 残差平方和（residuals summation of square）
+	<br>variance(a,b,c,...) : 分散（variance, 標本分散）
+	<br>uvar(a,b,c,...) : 不偏分散（unbiased variance）
+	<br>stdev(a,b,c,...) : 標準偏差（standard deviation）
+	<br>skew(a,b,c,...) : 歪度（歪み:skewness, 正規分布は左右対称で0）
+	<br>kurt(a,b,c,...) : 尖度（尖り:kurtosis, 正規分布は3）
+	<br><br>・その他
+	<br>mod(x,y) : 剰余算（xをyで除算した余りを求める演算）
+	<br>lcm(a,b,c,...) : 最小公倍数（least common multiple） 但し a,b,c,... は正の整数
+	<br>gcd(a,b,c,...) : 最大公約数（greatest common divisor） 但し a,b,c,... は正の整数
+	<br>sgn(x) : 符号関数（ x が正なら 1, 負なら－1, ゼロなら 0）
+	<br>round(x) : 小数第1位を四捨五入した整数の値
+	<br>floor(x) : 床関数（ x 以下で最大の整数）
+	<br>ceil(x) : 天井関数（ x 以上で最小の整数）
+	<br>beta(x,y) : ベータ関数（beta function Β(x,y) ）
+	<br>gamma(x) : ガンマ関数（gamma function Γ(x) ）
+	<br>loggamma(x) : 対数ガンマ関数（logarithm gamma function log(Γ(x)) ）
+	<br>erf(x) : 誤差関数（error function）
+	<br>erfc(x) : 相補誤差関数（complementary error function : erfc(x) ＝ 1－erf(x) ）
+</div>
+
+
+</body>
+</html>
